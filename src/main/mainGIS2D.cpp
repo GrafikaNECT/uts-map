@@ -1,0 +1,119 @@
+//includes
+#include <iostream>
+#include <fstream>
+
+#include "../include/Printer.h"
+#include "../include/Point.h"
+#include "../include/Image.h"
+#include "../include/SistemWindowView.h"
+#include "../include/Kbhit.h"
+
+#include "../include/SolidPolygon.h"
+#include "../include/Line.h"
+
+#define MARGIN 100
+#define DEFAULTWINDOWWIDTH 400
+#define BOTTOMTEXTSPACE 200
+
+//warnawarna
+#define VIEWCANVASTEXTURE Texture::createSingleColorTexture(0,0,0,255)
+#define BGTEXTURE Texture::createSingleColorTexture(100,100,100,255)
+
+using std::endl;
+using std::cerr;
+
+//kbhit untuk kontrol?
+
+int main(int argc, char *argv[] ){
+	//cek argumen
+	//buka dua buah ifstream dari nama file yang disuplai di argc argv
+	//itu untuk gambar dan tekstur
+	Image i;
+	if (argc==2){
+		std::ifstream f(argv[1]);
+		i = Image::fromStreamFormatMap(f);
+	}else if (argc==3){
+		std::ifstream fgambar(argv[1]);
+		std::ifstream ftekstur(argv[2]);
+		i = Image::fromStream(fgambar,ftekstur);
+	}else{
+		cerr<<"usage:\
+			./main <file dengan format map Candy dan Tifani - tanya Candy dan Tifani>\
+			./main <file Gambar> <file Tekstur>"<<endl;
+	}
+
+	//inisialisasi printer
+	Printer::initializePrinter();
+
+	//Hitung ukuran window dan ukuran view
+	//hitung view
+	Point viewMin(MARGIN,MARGIN);
+	Point viewMax(Printer::getXRes()-MARGIN,Printer::getYRes()-BOTTOMTEXTSPACE-MARGIN);
+	Point windowMin(0,0);
+	Point windowMax(DEFAULTWINDOWWIDTH,viewMax.getY()*DEFAULTWINDOWWIDTH/viewMax.getX());
+
+	//buat sebuah objek sistemwindowview
+	SistemWindowView sistemWindowView(windowMin,windowMax,viewMin,viewMax,i,Point(viewMin.getX(),viewMax.getY()+50),0.2);
+
+	//kanvas di view
+	SolidPolygon viewCanvas(VIEWCANVASTEXTURE);
+	viewCanvas.push_back(viewMin);
+	viewCanvas.push_back(Point(viewMin.getX(),viewMax.getY()));
+	viewCanvas.push_back(viewMax);
+	viewCanvas.push_back(Point(viewMax.getX(),viewMin.getY()));
+
+	SolidPolygon minimapCanvas(BGTEXTURE);
+	minimapCanvas.push_back(0,viewMax.getY());
+	minimapCanvas.push_back(0,viewMax.getY()+500);
+	minimapCanvas.push_back(viewMin.getX()+500,viewMax.getY()+500);
+	minimapCanvas.push_back(viewMin.getX()+500,viewMax.getY());
+
+	//looping menerima kontrol untuk pan dan zoom serta menggambar
+	//jangan lupa ada kontrol untuk quit
+	Printer::drawCanvas(100,100,100,255);
+	viewCanvas.draw();
+	sistemWindowView.draw();
+	Printer::printToScreen();
+	bool cont=true;
+	char c;
+	Kbhit::initTermios();
+	while (cont)
+	if (Kbhit::kbhit())
+	{
+		c=Kbhit::getch();
+		switch(c){
+		case 'w':
+			sistemWindowView.pan("up");
+		break;
+		case 's':
+			sistemWindowView.pan("down");
+		break;
+		case 'a':
+			sistemWindowView.pan("left");
+		break;
+		case 'd':
+			sistemWindowView.pan("right");
+		break;
+		case 'z':
+			sistemWindowView.zoom("in");
+		break;
+		case 'x':
+			sistemWindowView.zoom("out");
+		break;
+		case 'q':
+			cont=false;
+		break;
+		default:
+			cerr<<"No action bound for key '"<<c<<"'"<<endl;
+		break;
+		}
+		viewCanvas.draw();
+		minimapCanvas.draw();
+		sistemWindowView.draw();
+		Printer::printToScreen();
+	}
+
+	Kbhit::resetTermios();
+	//quit
+	Printer::finishPrinter();
+}
