@@ -1,10 +1,10 @@
-bin/main: bin bin/girl bin/Alphabet-2.txt bin/animshape Makefile
-
-bin/animshape: src/lib/*.cpp src/include/*.h src/main/mAnimationFace.cpp Makefile
-	g++ -o bin/animshape src/main/mAnimationFace.cpp src/lib/Curve.cpp src/lib/CurveShape.cpp src/lib/Printer.cpp src/lib/Point.cpp src/lib/SolidPolygon.cpp src/lib/Texture.cpp src/lib/CurveCollection.cpp src/lib/Girl.cpp src/lib/Kbhit.cpp src/lib/Alphabet.cpp src/lib/PixelBoolMatrix.cpp src/lib/Polygon.cpp src/lib/Letter.cpp -std=c++11 -fpermissive -lpthread -g
+bin/main: bin bin/mainGIS2D.out Makefile
 
 bin: Makefile
 	mkdir -p bin
+
+bin/mainGIS2D.out: src/lib/*.cpp src/include/*.h src/main/mainGIS2D.cpp Makefile
+	g++ -o bin/mainGIS2D.out src/main/mainGIS2D.cpp src/lib/SistemWindowView.cpp src/lib/Image.cpp src/lib/Line.cpp src/lib/SolidPolygon.cpp src/lib/Point.cpp src/lib/Texture.cpp src/lib/Printer.cpp src/lib/Kbhit.cpp -std=c++11 -fpermissive -lpthread -g
 
 bin/girl: src/main/girl/* Makefile
 	mkdir -p bin/girl
