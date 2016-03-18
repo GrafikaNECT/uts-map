@@ -22,6 +22,7 @@ protected:
 
 public:
 	SistemWindowView(Point windowMin, Point windowMax, Point viewMin, Point viewMax, Image map, Point minimapPos, float minimapScale);
+	SistemWindowView(){};
 
 	Point getWindowMin();
 	Point getWindowMax();

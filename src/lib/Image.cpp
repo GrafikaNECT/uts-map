@@ -162,6 +162,52 @@ Image Image::fromStreamFormatMap(std::istream& infile){
 	return retval;
 }
 
+Image Image::combineImages(std::vector<Image>& image){
+	Image retval;
+	for (std::vector<Image>::iterator it=image.begin();it!=image.end();it++){
+		std::list<Line>::iterator itline = it->lines.begin();
+		std::list<SolidPolygon>::iterator itpol = it->solidPolygons.begin();
+		std::list<int>::iterator itordline = it->orderGambarLine.begin();
+		std::list<int>::iterator itordpol = it->orderGambarSolidPolygon.begin();
+		int i=0;
+		while (itline != it->lines.end() || itpol != it->solidPolygons.end()){
+			if (itordpol==it->orderGambarSolidPolygon.end()){
+				retval.addLine(*itline);
+			}else if(itordline==it->orderGambarLine.end()){
+				retval.addSolidPolygon(*itpol);
+			}else if (*itordline<*itordpol){
+				retval.addLine(*itline);
+			}else{
+				retval.addSolidPolygon(*itpol);
+			}
+		}
+	}
+	return retval;
+}
+
+void Image::combine(Image& image){
+	std::list<Line>::iterator itline = image.lines.begin();
+	std::list<SolidPolygon>::iterator itpol = image.solidPolygons.begin();
+	std::list<int>::iterator itordline = image.orderGambarLine.begin();
+	std::list<int>::iterator itordpol = image.orderGambarSolidPolygon.begin();
+	int i=0;
+	while (itline != image.lines.end() || itpol != image.solidPolygons.end()){
+		if (itordpol==image.orderGambarSolidPolygon.end()){
+			addLine(*itline);
+			itline++;
+		}else if(itordline==image.orderGambarLine.end()){
+			addSolidPolygon(*itpol);
+			itpol++;
+		}else if (*itordline<*itordpol){
+			addLine(*itline);
+			itline++;
+		}else{
+			addSolidPolygon(*itpol);
+			itpol++;
+		}
+	}
+}
+
 //clip semua elemen
 Image Image::clip(Point min, Point max){
 	Image retval;

@@ -7,7 +7,7 @@
 #include "../include/Image.h"
 #include "../include/SistemWindowView.h"
 #include "../include/Kbhit.h"
-
+#include "../include/GIS2D.h"
 #include "../include/SolidPolygon.h"
 #include "../include/Line.h"
 
@@ -45,34 +45,12 @@ int main(int argc, char *argv[] ){
 	//inisialisasi printer
 	Printer::initializePrinter();
 
-	//Hitung ukuran window dan ukuran view
-	//hitung view
-	Point viewMin(MARGIN,MARGIN);
-	Point viewMax(Printer::getXRes()-MARGIN,Printer::getYRes()-BOTTOMTEXTSPACE-MARGIN);
-	Point windowMin(0,0);
-	Point windowMax(DEFAULTWINDOWWIDTH,viewMax.getY()*DEFAULTWINDOWWIDTH/viewMax.getX());
-
-	//buat sebuah objek sistemwindowview
-	SistemWindowView sistemWindowView(windowMin,windowMax,viewMin,viewMax,i,Point(viewMin.getX(),viewMax.getY()+50),0.2);
-
-	//kanvas di view
-	SolidPolygon viewCanvas(VIEWCANVASTEXTURE);
-	viewCanvas.push_back(viewMin);
-	viewCanvas.push_back(Point(viewMin.getX(),viewMax.getY()));
-	viewCanvas.push_back(viewMax);
-	viewCanvas.push_back(Point(viewMax.getX(),viewMin.getY()));
-
-	SolidPolygon minimapCanvas(BGTEXTURE);
-	minimapCanvas.push_back(0,viewMax.getY());
-	minimapCanvas.push_back(0,viewMax.getY()+500);
-	minimapCanvas.push_back(viewMin.getX()+500,viewMax.getY()+500);
-	minimapCanvas.push_back(viewMin.getX()+500,viewMax.getY());
+	GIS2D gis2D;
+	gis2D.add(i);
 
 	//looping menerima kontrol untuk pan dan zoom serta menggambar
 	//jangan lupa ada kontrol untuk quit
-	Printer::drawCanvas(100,100,100,255);
-	viewCanvas.draw();
-	sistemWindowView.draw();
+	gis2D.draw();
 	Printer::printToScreen();
 	bool cont=true;
 	char c;
@@ -81,24 +59,28 @@ int main(int argc, char *argv[] ){
 	if (Kbhit::kbhit())
 	{
 		c=Kbhit::getch();
+		if (c<='9' && c>='0'){
+			int layerNum=c-'0';
+			gis2D.toggleLayer(layerNum);
+		}else
 		switch(c){
 		case 'w':
-			sistemWindowView.pan("up");
+			gis2D.pan("up");
 		break;
 		case 's':
-			sistemWindowView.pan("down");
+			gis2D.pan("down");
 		break;
 		case 'a':
-			sistemWindowView.pan("left");
+			gis2D.pan("left");
 		break;
 		case 'd':
-			sistemWindowView.pan("right");
+			gis2D.pan("right");
 		break;
 		case 'z':
-			sistemWindowView.zoom("in");
+			gis2D.zoom("in");
 		break;
 		case 'x':
-			sistemWindowView.zoom("out");
+			gis2D.zoom("out");
 		break;
 		case 'q':
 			cont=false;
@@ -107,9 +89,7 @@ int main(int argc, char *argv[] ){
 			cerr<<"No action bound for key '"<<c<<"'"<<endl;
 		break;
 		}
-		viewCanvas.draw();
-		minimapCanvas.draw();
-		sistemWindowView.draw();
+		gis2D.draw();
 		Printer::printToScreen();
 	}
 

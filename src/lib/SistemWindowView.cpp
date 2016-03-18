@@ -21,7 +21,10 @@ void SistemWindowView::setWindowMin(Point min) {windowMin = min;}
 void SistemWindowView::setWindowMax(Point max) {windowMax = max;}
 void SistemWindowView::setViewMin(Point min) {viewMin = min;}
 void SistemWindowView::setViewMax(Point max) {viewMax = max;}
-void SistemWindowView::setMap(Image map) {this->map = map;}
+void SistemWindowView::setMap(Image map) {
+	this->map = map;
+	this->minimap = map.scaleResult(minimapScale).moveResult(minimapPos);
+}
 
 void SistemWindowView::pan(std::string direction) {
 	if (direction == "left") {

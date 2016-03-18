@@ -5,6 +5,7 @@
 #include "../include/Point.h"
 #include "../include/SolidPolygon.h"
 #include <list>
+#include <vector>
 
 #include <iostream>
 
@@ -28,7 +29,7 @@ class Image {
 	//menambah SolidPolygon
 	//perhatikan orderGambar (spek di bawah)
 	void addSolidPolygon(SolidPolygon solidPolygon);
-	
+
 	//membuat image dari streamImage
 	//
 	//sebelumnya meload stream tekstur terlebih dahulu
@@ -50,6 +51,11 @@ class Image {
 				std::istream& streamTekstur);
 
 	static Image fromStreamFormatMap(std::istream& infile);
+
+	static Image combineImages(std::vector<Image>& image);
+
+	//BERGABUNG!!
+	void combine(Image& i);
 
 	//clip semua elemen
 	Image clip(Point min, Point max);
