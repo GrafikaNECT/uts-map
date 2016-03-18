@@ -1,4 +1,4 @@
-bin/main: bin bin/mainGIS2D.out Makefile
+bin/main: bin bin/mainGIS2D.out bin/assets Makefile
 
 bin: Makefile
 	mkdir -p bin
@@ -12,3 +12,6 @@ bin/girl: src/main/girl/* Makefile
 
 bin/Alphabet-2.txt: src/main/Alphabet-2.txt Makefile
 	cp src/main/Alphabet-2.txt bin/
+
+bin/assets: src/assets src/assets/*
+	cp src/assets bin/assets -r

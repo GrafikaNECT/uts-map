@@ -22,34 +22,29 @@
 using std::endl;
 using std::cerr;
 
+void drawAllCanvas(){
+	Printer::drawCanvas(100,100,100,255);
+}
+
 //kbhit untuk kontrol?
 
 int main(int argc, char *argv[] ){
-	//cek argumen
-	//buka dua buah ifstream dari nama file yang disuplai di argc argv
-	//itu untuk gambar dan tekstur
-	Image i;
-	if (argc==2){
-		std::ifstream f(argv[1]);
-		i = Image::fromStreamFormatMap(f);
-	}else if (argc==3){
-		std::ifstream fgambar(argv[1]);
-		std::ifstream ftekstur(argv[2]);
-		i = Image::fromStream(fgambar,ftekstur);
-	}else{
-		cerr<<"usage:\
-			./main <file dengan format map Candy dan Tifani - tanya Candy dan Tifani>\
-			./main <file Gambar> <file Tekstur>"<<endl;
-	}
+	//load file-file
+	std::ifstream fileLaut("assets/indonesia_map_elements/Laut.txt");
+	std::ifstream filePulau("assets/indonesia_map_elements/Pulau.txt");
+	std::ifstream fileKontur("assets/indonesia_map_elements/Kontur.txt");
 
 	//inisialisasi printer
 	Printer::initializePrinter();
 
 	GIS2D gis2D;
-	gis2D.add(i);
+	gis2D.add(Image::fromStreamFormatMap(fileLaut));
+	gis2D.add(Image::fromStreamFormatMap(filePulau));
+	gis2D.add(Image::fromStreamFormatMap(fileKontur));
 
 	//looping menerima kontrol untuk pan dan zoom serta menggambar
 	//jangan lupa ada kontrol untuk quit
+	drawAllCanvas();
 	gis2D.draw();
 	Printer::printToScreen();
 	bool cont=true;
