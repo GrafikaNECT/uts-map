@@ -8,9 +8,11 @@
 
 class Model3D: public std::vector<SolidPolygon3D>{
 	public:
+	Model3D(){};
 	Model3D(std::vector<SolidPolygon3D>& vec):std::vector<SolidPolygon3D>(vec){};
+	Model3D& operator=(std::vector<SolidPolygon3D>& vec){std::vector<SolidPolygon3D>::operator=(vec);};
 	//Model3D hasilGeser(Point3D delta);
-	//Model3D hasilGeser(int deltax, int deltay, int deltaz);
+	Model3D moveResult(int deltax, int deltay, int deltaz);
 	//Model3D hasilPerbesar(float scale);
 
 	void rotate (float deltaDegree,char axis);
@@ -19,6 +21,8 @@ class Model3D: public std::vector<SolidPolygon3D>{
 	Model3D rotationResult(float deltaDegree,char axis);
 	Model3D rotationResult(float deltaDegree, Point3D poros, char axis);
 
+	void combine(Model3D& model3D);
+
 	std::vector<SolidPolygon3D> orderSolidPolygon();
 	std::vector<SolidPolygon> projectionResult(Point3D eye);
 
@@ -26,7 +30,7 @@ class Model3D: public std::vector<SolidPolygon3D>{
 
 	void draw(Point3D eye);
 
-
+	static Model3D fromStreamFormatMap(std::istream& infile);
 	
 };
 
