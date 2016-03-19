@@ -44,6 +44,11 @@ void WeatherAnimation::createSunnyWeather() {
 
 void WeatherAnimation::createSunnyCloudyWeather() {
 	addFrame("../assets/weather/sunnycloudy/suncloud_1.txt");
+	addFrame("../assets/weather/sunnycloudy/suncloud_3.txt");
+	addFrame("../assets/weather/sunnycloudy/suncloud_2.txt");
+	addFrame("../assets/weather/sunnycloudy/suncloud_3.txt");
+
+
 }
 
 void WeatherAnimation::createStormyWeather() {

@@ -37,7 +37,7 @@ void WeatherInformation::parse() {
 
         for (int i = 0; i < 10; i++) {
 
-          std::cout << i << " "  << line << '\n';
+          //std::cout << i << " "  << line << '\n';
           std::istringstream iss(line);
           getline (myfile,line);  
 
