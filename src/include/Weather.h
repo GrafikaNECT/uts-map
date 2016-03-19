@@ -32,6 +32,11 @@ public:
 	void setVisibility(float _visibility) { visibility = _visibility; };
 	void setUVIndex(int _uvIndex) { uvIndex = _uvIndex; };
 
+	static const int CLOUDY = 1;
+	static const int RAINY = 2;
+	static const int SUNNY = 3;
+	static const int STORMY = 4;
+	static const int SUNCLOUD = 5;
 private:
 	WeatherAnimation weatherAnimation;
 	int temperature;

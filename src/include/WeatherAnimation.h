@@ -11,13 +11,7 @@ public:
 	WeatherAnimation() {};
 	WeatherAnimation(int weatherType);
 	~WeatherAnimation();
-
-	static const int CLOUDY = 1;
-	static const int RAINY = 2;
-	static const int SUNNY = 3;
-	static const int STORMY = 4;
-	static const int SUNCLOUD = 5;
-	
+		
 private:
 	void createCloudyWeather();
 	void createRainyWeather();
