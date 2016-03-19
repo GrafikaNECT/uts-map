@@ -103,7 +103,15 @@ void Curve::move(int dx, int dy) {
 
 void Curve::scale(float s) {
 //TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
-    if (this->size() > 0) {  
+    /*if (this->size() > 0) {  
+        Point min = Point();
+        Point max = Point();
+        for (double t = 0.001; t <= 1; t += 0.001) { 
+            Point newPoint = calculateBezier(t);
+            if (newPoint!=tmp.back())
+                calculateBezier(t));
+            }
+
         int x = this->at(0).getX();
         int y = this->at(0).getY();
         for(int i=0; i<this->size(); i++) {
@@ -119,7 +127,10 @@ void Curve::scale(float s) {
             }
         }
         texture = texture.scaleResult(s);
-    }
+    }*/
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).scale(s);
+    }    
 }
 
 void Curve::scale(float sx, float sy) {
@@ -162,4 +173,34 @@ void Curve::rotate(float t, const Point& cp) {
     for(int i=0; i<this->size(); i++) {
         this->at(0).rotate(t, cp);
     }
+}
+
+Curve Curve::moveResult(Point delta){
+    move(delta.getX(), delta.getY());
+    return *this;
+}
+
+Curve Curve::moveResult(int deltax, int deltay){
+    move(deltax, deltay);
+    return *this;
+}
+
+Curve Curve::scaleResult(float s){
+    scale(s);
+    return *this;
+}
+
+Curve Curve::scaleResult(float scaleX, float scaleY){
+    scale(scaleX, scaleY);
+    return *this;
+}
+
+Curve Curve::rotationResult(float deltaDegree){
+    rotate(deltaDegree);
+    return *this;
+}
+
+Curve Curve::rotationResult(float deltaDegree, Point poros){
+    rotate(deltaDegree, poros);
+    return *this;
 }

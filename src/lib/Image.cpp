@@ -280,6 +280,10 @@ Image Image::moveResult(Point delta){
 		itpol!=retval.solidPolygons.end();itpol++){
 		*itpol = itpol->moveResult(delta);
 	}
+	for (std::list<CurveCollection>::iterator itcur = retval.curveCollections.begin();
+		itcur!=retval.curveCollections.end();itcur++){
+		*itcur = itcur->moveResult(delta);
+	}
 	return retval;
 }
 
@@ -293,6 +297,10 @@ Image Image::scaleResult(float scaleX, float scaleY){
 	for (std::list<SolidPolygon>::iterator itpol = retval.solidPolygons.begin();
 		itpol!=retval.solidPolygons.end();itpol++){
 		*itpol = itpol->scaleResult(scaleX,scaleY);
+	}
+	for (std::list<CurveCollection>::iterator itcur = retval.curveCollections.begin();
+		itcur!=retval.curveCollections.end();itcur++){
+		*itcur = itcur->scaleResult(scaleX,scaleY);
 	}
 	return retval;
 }

@@ -45,3 +45,9 @@ void *Animation::startThread(void *threadArg) {
 		usleep(25000);
 	}
 }
+
+void Animation::scale(float s) {
+	for (int i=0; i<frames.size(); i++) {
+		frames.at(i).scale(s);
+	}
+}

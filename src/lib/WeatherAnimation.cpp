@@ -22,6 +22,7 @@ WeatherAnimation::WeatherAnimation(int weatherType, int x, int y) {
 		default:
 		  break;
 	}
+	scale(0.1);
 }
 
 WeatherAnimation::~WeatherAnimation() {

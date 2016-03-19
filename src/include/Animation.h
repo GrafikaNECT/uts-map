@@ -28,6 +28,9 @@ public:
 	bool getRunning() { return running; };
 
 	void setCurrentFrame(int frame) { currentFrame = frame; };
+
+	// Operation
+	void scale(float s);
 private:
 	static void *startThread(void *threadArg);
 

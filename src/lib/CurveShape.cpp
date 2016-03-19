@@ -103,7 +103,7 @@ void CurveShape::move(int dx, int dy) {
 
 void CurveShape::scale(float s) {
 //TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
-    if (this->size() > 0) {  
+    /*if (this->size() > 0) {  
         int x = this->at(0).getX();
         int y = this->at(0).getY();
         for(int i=0; i<this->size(); i++) {
@@ -120,7 +120,10 @@ void CurveShape::scale(float s) {
         }
         outlineTexture = outlineTexture.scaleResult(s);
         fillTexture = fillTexture.scaleResult(s);
-    }
+    }*/
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).scale(s);
+    } 
 }
 
 void CurveShape::scale(float sx, float sy) {
@@ -163,4 +166,33 @@ void CurveShape::rotate(float t, const Point& cp) {
     for(int i=0; i<this->size(); i++) {
         this->at(0).rotate(t, cp);
     }
+}
+
+CurveShape CurveShape::moveResult(Point delta){
+    move(delta.getX(), delta.getY());
+    return *this;
+}
+
+CurveShape CurveShape::moveResult(int deltax, int deltay){
+    move(deltax, deltay);
+    return *this;
+}
+CurveShape CurveShape::scaleResult(float s){
+    scale(s);
+    return *this;
+}
+
+CurveShape CurveShape::scaleResult(float scaleX, float scaleY){
+    scale(scaleX, scaleY);
+    return *this;
+}
+
+CurveShape CurveShape::rotationResult(float deltaDegree){
+    rotate(deltaDegree);
+    return *this;
+}
+
+CurveShape CurveShape::rotationResult(float deltaDegree, Point poros){
+    rotate(deltaDegree, poros);
+    return *this;
 }

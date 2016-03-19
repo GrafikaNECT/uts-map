@@ -34,8 +34,8 @@ void Point::scale(float s) {
 	y = (int)y*s;
 }
 void Point::scale(float sx, float sy){
-	x*=sx;
-	y*=sy;
+	x = x * sx;
+	y = x * sy;
 }
 void Point::scale(float s, int cx, int cy) {
 	move(-cx,-cy);
