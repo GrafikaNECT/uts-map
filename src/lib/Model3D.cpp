@@ -123,16 +123,14 @@ void Model3D::draw(Point3D eye){
 
 
 			//alokasi
-			//std::list<ScanlineSegment>::iterator fsit = freeSegment.begin();
+			std::list<ScanlineSegment>::iterator fsit = freeSegment.begin();
 
-			/*for (int i=0;i<intersections.size();){
+			for (int i=0;i<intersections.size();){
 				if (freeSegment.empty()) break;
 				if (fsit==freeSegment.end()) break;
 				int intersectionmin = intersections[i];
 				int intersectionmax = intersections[i+1];
 				if (intersectionmin<=fsit->min){
-					Printer::drawPix(intersectionmin,y,255,0,0,255);
-					Printer::drawPix(intersectionmax,y,255,0,0,255);
 					if (intersectionmax<fsit->min){
 						i+=2;
 						//do nothing
@@ -145,8 +143,6 @@ void Model3D::draw(Point3D eye){
 						allocatedSegments.erase(fsit++);
 					}
 				}else if (intersectionmin<=fsit->max){
-					Printer::drawPix(intersectionmin,y,0,0,255,255);
-					Printer::drawPix(intersectionmax,y,0,0,255,255);
 					if (intersectionmax<fsit->max){
 						allocatedSegments.push_front(ScanlineSegment(intersectionmin,intersectionmax,p.getTexture()));
 						freeSegment.insert(fsit,ScanlineSegment(fsit->min,intersectionmin-1,Texture()));
@@ -157,39 +153,7 @@ void Model3D::draw(Point3D eye){
 						fsit++;
 					}
 				}else{
-					i+=2;
-				}
-			}*///cobain pakai yang iterasinya O(mn)
-			for (int i=0;i<intersections.size();i+=2){
-				int intersectionmin = intersections[i];
-				int intersectionmax = intersections[i+1];
-				for (std::list<ScanlineSegment>::iterator fsit=freeSegment.begin();fsit!=freeSegment.end();){
-					if (intersectionmin<=fsit->min){
-						if (intersectionmax<fsit->min){
-							//do nothing
-							fsit++;
-						}else if (intersectionmax<fsit->max){
-							allocatedSegments.push_front(ScanlineSegment(fsit->min,intersectionmax,p.getTexture()));
-							fsit->min=intersectionmax+1;
-							fsit++;
-						}else{
-							allocatedSegments.push_front(ScanlineSegment(fsit->min,fsit->max,p.getTexture()));
-							allocatedSegments.erase(fsit++);
-						}
-					}else if (intersectionmin<=fsit->max){
-						if (intersectionmax<fsit->max){
-							allocatedSegments.push_front(ScanlineSegment(intersectionmin,intersectionmax,p.getTexture()));
-							freeSegment.insert(fsit,ScanlineSegment(fsit->min,intersectionmin-1,Texture()));
-							fsit->min=intersectionmax+1;
-							fsit++;
-						}else{
-							allocatedSegments.push_front(ScanlineSegment(intersectionmin,fsit->max,p.getTexture()));
-							fsit->max=intersectionmin-1;
-							fsit++;
-						}
-					}else{
-						fsit++;
-					}	
+					fsit++;
 				}
 			}
 
