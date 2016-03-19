@@ -18,13 +18,13 @@ int main(){
 	Printer::initializePrinter();
 	Printer::drawCanvas(255,255,255,255);
 
-	WeatherAnimation cloudy = WeatherAnimation(WeatherAnimation::CLOUDY);
+	WeatherAnimation cloudy = WeatherAnimation(WeatherAnimation::SUNNY);
 	cloudy.startAnimation();
 
 	while (true) {
 		cloudy.getFrame().draw();
 		Printer::printToScreen();
-		usleep(1000);
+		Printer::drawCanvas(255,255,255,255);
 	}
 
 	return 0;
