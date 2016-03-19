@@ -1,9 +1,18 @@
 #include "../include/CurveCollection.h"
+#include <limits.h>
+#include <unistd.h>
+
+std::string getexepath()
+{
+  char result[ PATH_MAX ];
+  ssize_t count = readlink( "/proc/self/exe", result, PATH_MAX );
+  return std::string( result, (count > 0) ? count : 0 );
+}
 
 CurveCollection::CurveCollection(std::string fileName) {
 	std::ifstream infile(fileName);
     if (!infile) {
-        cerr << "File not found." << endl;
+        cerr << "File not found. in " << getexepath << " " << fileName << endl;
         
     }
     // std::cout << "HOHO";

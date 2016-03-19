@@ -3,6 +3,15 @@
 #include <list>
 #include "../include/Printer.h"
 
+Model3D Model3D::moveResult(int deltax, int deltay, int deltaz){
+	Model3D retval = *this;
+	for (int i=0;i<std::vector<SolidPolygon3D>::size();i++){
+		const SolidPolygon3D& s = at(i);
+		retval[i]=s.moveResult(deltax, deltay, deltaz);
+	}
+	return retval;
+}
+
 void Model3D::rotate(float deltaDegree, char axis) {
 
 }
@@ -28,6 +37,10 @@ Model3D Model3D::rotationResult(float deltaDegree, Point3D poros, char axis){
 		retval[i]=s.rotationResult(deltaDegree, poros, axis);
 	}
 	return retval;
+}
+
+void Model3D::combine(Model3D& model3D){
+	insert(end(),model3D.begin(),model3D.end());
 }
 
 std::vector<SolidPolygon3D> Model3D::orderSolidPolygon() {
@@ -61,9 +74,9 @@ class ScanlineSegment{
 
 void Model3D::draw(Point3D eye){
 	//Scanline algorithm
-	orderSolidPolygon();
 
 	std::vector<SolidPolygon> model2D = projectionResult(eye);
+
 	//cari xmin, xmax, ymin, ymax dari scanline
 	int xmax = 0;
 	int xmin = Printer::getXRes()-1;
@@ -117,11 +130,11 @@ void Model3D::draw(Point3D eye){
 				if (fsit==freeSegment.end()) break;
 				int intersectionmin = intersections[i];
 				int intersectionmax = intersections[i+1];
-				if (intersectionmin<fsit->min){
+				if (intersectionmin<=fsit->min){
 					if (intersectionmax<fsit->min){
 						i+=2;
 						//do nothing
-					}else if (intersectionmax<=fsit->max){
+					}else if (intersectionmax<fsit->max){
 						allocatedSegments.push_front(ScanlineSegment(fsit->min,intersectionmax,p.getTexture()));
 						fsit->min=intersectionmax+1;
 						i+=2;
@@ -130,16 +143,17 @@ void Model3D::draw(Point3D eye){
 						allocatedSegments.erase(fsit++);
 					}
 				}else if (intersectionmin<=fsit->max){
-					if (intersectionmax<=fsit->max){
+					if (intersectionmax<fsit->max){
 						allocatedSegments.push_front(ScanlineSegment(intersectionmin,intersectionmax,p.getTexture()));
 						freeSegment.insert(fsit,ScanlineSegment(fsit->min,intersectionmin-1,Texture()));
 						fsit->min=intersectionmax+1;
 					}else{
 						allocatedSegments.push_front(ScanlineSegment(intersectionmin,fsit->max,p.getTexture()));
 						fsit->max=intersectionmin-1;
+						fsit++;
 					}
 				}else{
-					i+=2;
+					fsit++;
 				}
 			}
 
@@ -150,6 +164,67 @@ void Model3D::draw(Point3D eye){
 			for (int x=asit->min;x<=asit->max;x++)
 				asit->texture.draw(x,y);
 		}
+	}
+}
+
+#include <sstream>
+#include <string>
+
+Model3D Model3D::fromStreamFormatMap(std::istream& infile){
+	Model3D retval;
+	int num = 0;
+
+	// Using getline() to read one Line at a time.
+	std::string Line;
+	while (std::getline(infile, Line)) {
+
+		if (Line.empty()) continue;
+		std::string name(Line);
+
+		std::getline(infile, Line);
+		std::istringstream issLevel(Line);
+		int level;
+		issLevel>>level;
+
+		// Using istringstream to read the Line into integers.
+		std::getline(infile, Line);
+		std::istringstream iss(Line);
+
+		int next;
+		bool isX = 1;
+
+		num++;
+		iss >> next;
+		int R = next;
+		iss >> next;
+		int G = next;
+		iss >> next;
+		int B = next;
+		iss >> next;
+		int alpha = next;
+
+		SolidPolygon3D smallIsland(Texture::createSingleColorTexture(R,G,B,alpha)); //TODO: kasih grain
+	
+		std::getline(infile, Line);
+		std::istringstream issCoor(Line);
+
+		int tempX;
+		while (issCoor >> next) {
+			if (isX) {
+				isX = 0;
+				tempX = next;
+			} else {
+				isX = 1;
+				smallIsland.push_back(tempX, next, level);
+			}
+			
+			if (issCoor.peek() == ',')
+				issCoor.ignore();
+		}
+
+		retval.push_back(smallIsland);
 
 	}
+
+	return retval;
 }
