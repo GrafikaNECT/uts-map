@@ -91,33 +91,72 @@ Point Curve::calculateBezier(double t) {
     return Point(x,y);
 }
 
-// cubic bezier
-/* function Bezier(3,t,w[]):
-  t2 = t * t
-  t3 = t2 * t
-  mt = 1-t
-  mt2 = mt * mt
-  mt3 = mt2 * mt
-  return w[0]*mt3 + 3*w[1]*mt2*t + 3*w[2]*mt*t2 + w[3]*t3
-  */
-
-// caseljau in c#
-/*
-private void drawCasteljau(List<point> points) {
-    Point tmp;
-    for (double t = 0; t <= 1; t += 0.001) { 
-        tmp = getCasteljauPoint(points.Count-1, 0, t);
-        image.SetPixel(tmp.X, tmp.Y, color);
+// Operations
+void Curve::move(int dx, int dy) {
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).move(dx, dy);
     }
 }
 
-
-private Point getCasteljauPoint(int r, int i, double t) { 
-    if(r == 0) return points[i];
-
-    Point p1 = getCasteljauPoint(r - 1, i, t);
-    Point p2 = getCasteljauPoint(r - 1, i + 1, t);
-
-    return new Point((int) ((1 - t) * p1.X + t * p2.X), (int) ((1 - t) * p1.Y + t * p2.Y));
+void Curve::scale(float s) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    if (this->size() > 0) {  
+        int x = this->at(0).getX();
+        int y = this->at(0).getY();
+        for(int i=0; i<this->size(); i++) {
+            this->at(i).scale(s);
+        }
+        int _x = this->at(0).getX();
+        int _y = this->at(0).getY();
+        for(int i=0; i<this->size(); i++) {
+            if (s>0) {
+                this->at(i).move(x-_x, y-_y);
+            } else {
+                this->at(i).move(_x-x, _y-y);
+            }
+        }
+        texture = texture.scaleResult(s);
+    }
 }
-*/
+
+void Curve::scale(float sx, float sy) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).scale(sx, sy);
+    }
+}
+
+void Curve::scale(float s, int cx, int cy) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).scale(s, cx, cy);
+    }
+}
+
+void Curve::scale(float s, Point& cp) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).scale(s, cp);
+    }
+}
+
+void Curve::rotate(float t) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).rotate(t);
+    }
+}
+
+void Curve::rotate(float t, int cx, int cy) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(0).rotate(t, cx, cy);
+    }
+}
+
+void Curve::rotate(float t, const Point& cp) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(0).rotate(t, cp);
+    }
+}

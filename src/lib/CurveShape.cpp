@@ -96,3 +96,74 @@ void CurveShape::draw(){
         outlineTexture.draw(fill.at(i).getX(), fill.at(i).getY());
     }
 }
+
+// Operations
+void CurveShape::move(int dx, int dy) {
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).move(dx, dy);
+    }
+}
+
+void CurveShape::scale(float s) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    if (this->size() > 0) {  
+        int x = this->at(0).getX();
+        int y = this->at(0).getY();
+        for(int i=0; i<this->size(); i++) {
+            this->at(i).scale(s);
+        }
+        int _x = this->at(0).getX();
+        int _y = this->at(0).getY();
+        for(int i=0; i<this->size(); i++) {
+            if (s>0) {
+                this->at(i).move(x-_x, y-_y);
+            } else {
+                this->at(i).move(_x-x, _y-y);
+            }
+        }
+        outlineTexture = outlineTexture.scaleResult(s);
+        fillTexture = fillTexture.scaleResult(s);
+    }
+}
+
+void CurveShape::scale(float sx, float sy) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).scale(sx, sy);
+    }
+}
+
+void CurveShape::scale(float s, int cx, int cy) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).scale(s, cx, cy);
+    }
+}
+
+void CurveShape::scale(float s, Point& cp) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).scale(s, cp);
+    }
+}
+
+void CurveShape::rotate(float t) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).rotate(t);
+    }
+}
+
+void CurveShape::rotate(float t, int cx, int cy) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(0).rotate(t, cx, cy);
+    }
+}
+
+void CurveShape::rotate(float t, const Point& cp) {
+//TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
+    for(int i=0; i<this->size(); i++) {
+        this->at(0).rotate(t, cp);
+    }
+}
