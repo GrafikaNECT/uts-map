@@ -15,6 +15,9 @@ WeatherAnimation::WeatherAnimation(int weatherType) {
 		case WeatherAnimation::STORMY:
 		  createStormyWeather();
 		  break;
+		case WeatherAnimation::SUNCLOUD:
+		  createSunnyCloudyWeather();
+		  break;
 		default:
 		  break;
 	}
@@ -29,13 +32,19 @@ void WeatherAnimation::createCloudyWeather() {
 }
 
 void WeatherAnimation::createRainyWeather() {
-
+	addFrame("../assets/weather/rainy/rainy_1.txt");
+	addFrame("../assets/weather/rainy/rainy_2.txt");
 }
 
 void WeatherAnimation::createSunnyWeather() {
+	addFrame("../assets/weather/sunny/sunny_1.txt");
+}
+
+void WeatherAnimation::createSunnyCloudyWeather() {
 
 }
 
 void WeatherAnimation::createStormyWeather() {
-
+	addFrame("../assets/weather/thunder/thunder_1.txt");
+	addFrame("../assets/weather/thunder/thunder_2.txt");
 }
