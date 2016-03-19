@@ -173,9 +173,13 @@ Image Image::fromWeatherInformation(WeatherInformation weatherInformation) {
 	Image retval;
 
 	for(int i=0; i<weatherInformation.getListOfCities().size(); i++) {
-		retval.addCurveCollection(weatherInformation.getListOfCities().at(i).getWeather().getWeatherAnimation().getFrames().at(0));
+		//cout << weatherInformation.getListOfCities().at(i).getCityName() << " ";
+		//cout << weatherInformation.getListOfCities().at(i).getWeather().getWeatherAnimation().getCurrentFrame() << endl;
+		//cout << weatherInformation.getListOfCities().at(i).getWeather().getWeatherAnimation().getFrames().size() << endl;
+		if (weatherInformation.getListOfCities().at(i).getWeather().getWeatherAnimation().getFrames().size()>0)
+			retval.addCurveCollection(weatherInformation.getListOfCities().at(i).getWeather().getWeatherAnimation().getFrame());
 	}
-
+	cout << "CURVE COL " << retval.curveCollections.size() << endl;
 	return retval;
 }
 
@@ -206,22 +210,31 @@ Image Image::combineImages(std::vector<Image>& image){
 void Image::combine(Image& image){
 	std::list<Line>::iterator itline = image.lines.begin();
 	std::list<SolidPolygon>::iterator itpol = image.solidPolygons.begin();
+	std::list<CurveCollection>::iterator itcur = curveCollections.begin();
 	std::list<int>::iterator itordline = image.orderGambarLine.begin();
 	std::list<int>::iterator itordpol = image.orderGambarSolidPolygon.begin();
+	std::list<int>::iterator itordcur = orderGambarCurveCollection.begin();
 	int i=0;
-	while (itline != image.lines.end() || itpol != image.solidPolygons.end()){
-		if (itordpol==image.orderGambarSolidPolygon.end()){
+	cout << "COMBINE CUR " << image.curveCollections.size() << endl;
+	while (itline != image.lines.end() || itpol != image.solidPolygons.end() || itcur != curveCollections.end()){
+		if (itordpol==image.orderGambarSolidPolygon.end() && itordcur==orderGambarCurveCollection.end()){
 			addLine(*itline);
 			itline++;
-		}else if(itordline==image.orderGambarLine.end()){
+		} else if(itordline==image.orderGambarLine.end() && itordcur==orderGambarCurveCollection.end()){
 			addSolidPolygon(*itpol);
 			itpol++;
-		}else if (*itordline<*itordpol){
+		} else if(itordpol==orderGambarSolidPolygon.end() && itordline==orderGambarLine.end()) {
+			addCurveCollection(*itcur);
+			itcur++;
+		} else if (*itordline<*itordpol && *itordline<*itordcur) {
 			addLine(*itline);
 			itline++;
-		}else{
+		} else if (*itordpol<*itordline && *itordpol<*itordcur) {
 			addSolidPolygon(*itpol);
 			itpol++;
+		} else {
+			addCurveCollection(*itcur);
+			itcur++;
 		}
 	}
 }
@@ -229,13 +242,15 @@ void Image::combine(Image& image){
 //clip semua elemen
 Image Image::clip(Point min, Point max){
 	Image retval;
-	std::list<Line>::iterator itline = lines.begin();
-	std::list<SolidPolygon>::iterator itpol = solidPolygons.begin();
-	std::list<int>::iterator itordline = orderGambarLine.begin();
-	std::list<int>::iterator itordpol = orderGambarSolidPolygon.begin();
+	std::list<Line>::iterator itline = image.lines.begin();
+	std::list<SolidPolygon>::iterator itpol = image.solidPolygons.begin();
+	std::list<CurveCollection>::iterator itcur = curveCollections.begin();
+	std::list<int>::iterator itordline = image.orderGambarLine.begin();
+	std::list<int>::iterator itordpol = image.orderGambarSolidPolygon.begin();
+	std::list<int>::iterator itordcur = orderGambarCurveCollection.begin();
 	int i=0;
-	while (itline != lines.end() || itpol != solidPolygons.end()){
-		if (itordpol==orderGambarSolidPolygon.end()){
+	while (itline != lines.end() || itpol != solidPolygons.end() || itcur != curveCollections.end()){
+		if (itordpol==orderGambarSolidPolygon.end() && itordcur==orderGambarCurveCollection.end()){
 			Line l = itline->clip(min,max);
 			if (!(l.getX1()==-1 && l.getX2()==-1
 				&&l.getY1()==-1 && l.getY2()==-1)){
@@ -243,11 +258,16 @@ Image Image::clip(Point min, Point max){
 			}
 			itline++;
 			itordline++;
-		}else if(itordline==orderGambarLine.end()){
+		} else if(itordline==orderGambarLine.end() && itordcur==orderGambarCurveCollection.end()){
 			retval.addSolidPolygon(itpol->clip(min,max));
 			itpol++;
 			itordpol++;
-		}else if (*itordline<*itordpol){
+		} else if(itordpol==orderGambarSolidPolygon.end() && itordline==orderGambarLine.end()) {
+			// TODO
+			retval.addCurveCollection(itcur);
+			itcur++;
+			itordcur++;
+		} else if (*itordline<*itordpol && *itordline<*itordcur) {
 			Line l = itline->clip(min,max);
 			if (!(l.getX1()==-1 && l.getX2()==-1
 				&&l.getY1()==-1 && l.getY2()==-1)){
@@ -255,10 +275,15 @@ Image Image::clip(Point min, Point max){
 			}
 			itline++;
 			itordline++;
-		}else{
+		} else if (*itordpol<*itordline && *itordpol<*itordcur) {
 			retval.addSolidPolygon(itpol->clip(min,max));
 			itpol++;
 			itordpol++;
+		} else {
+			// TODO
+			retval.addCurveCollection(itcur);
+			itcur++;
+			itordcur++;
 		}
 	}
 	return retval;
@@ -301,29 +326,39 @@ void Image::draw(){
 	std::list<int>::iterator itordline = orderGambarLine.begin();
 	std::list<int>::iterator itordpol = orderGambarSolidPolygon.begin();
 	std::list<int>::iterator itordcur = orderGambarCurveCollection.begin();
+
+	cout << "size line: " << lines.size() << endl;
+	cout << "size poly: " << solidPolygons.size() << endl;
+	cout << "size curv: " << curveCollections.size() << endl;
 	
 	while (itline != lines.end() || itpol != solidPolygons.end() || itcur != curveCollections.end()){
-		if (itordpol==orderGambarSolidPolygon.end()){
+		if (itordpol==orderGambarSolidPolygon.end() && itordcur==orderGambarCurveCollection.end()){
+			//cout << "DRAW LINE" << endl;
 			itline->draw();
 			itline++;
 			itordline++;
-		} else if(itordline==orderGambarLine.end()){
+		} else if(itordline==orderGambarLine.end() && itordcur==orderGambarCurveCollection.end()){
+			//cout << "DRAW POLY" << endl;
 			itpol->draw();
 			itpol++;
 			itordpol++;
-		} else if(itordcur==orderGambarCurveCollection.end()) {
+		} else if(itordpol==orderGambarSolidPolygon.end() && itordline==orderGambarLine.end()) {
+			cout << "DRAW CURVE" << endl;
 			itcur->draw();
 			itcur++;
 			itordcur++;
 		} else if (*itordline<*itordpol && *itordline<*itordcur) {
+			cout << "DRAW LINE 2" << endl;
 			itline->draw();
 			itline++;
 			itordline++;
 		} else if (*itordpol<*itordline && *itordpol<*itordcur) {
+			cout << "DRAW POL 2" << endl;
 			itpol->draw();
 			itpol++;
 			itordpol++;
 		} else {
+			cout << "DRAW CURVE 2" << endl;
 			itcur->draw();
 			itcur++;
 			itordcur++;

@@ -41,7 +41,7 @@ int main(int argc, char *argv[] ){
 	GIS2D gis2D;
 	gis2D.add(Image::fromStreamFormatMap(fileLaut));
 	gis2D.add(Image::fromStreamFormatMap(filePulau));
-	gis2D.add(Image::fromStreamFormatMap(fileKontur));
+	//gis2D.add(Image::fromStreamFormatMap(fileKontur));
 	gis2D.add(Image::fromWeatherInformation(info));
 
 	//looping menerima kontrol untuk pan dan zoom serta menggambar

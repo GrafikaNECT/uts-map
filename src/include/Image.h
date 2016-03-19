@@ -79,10 +79,12 @@ class Image {
 	//Line dan poligon
 	void draw();
 
-	private:
+	
 	std::list<Line> lines;
 	std::list<SolidPolygon> solidPolygons;
 	std::list<CurveCollection> curveCollections;
+
+	private:
 
 //untuk iterasi menggambar,
 //saat di-add, ini diisi dengan order gambar yang menaik
