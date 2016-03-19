@@ -8,13 +8,13 @@
 
 class Weather {
 public:
-	Weather(int weatherType, int _temperature, string _windDirection,
+	Weather(int weatherType, int _temperature, std::string _windDirection,
 		int _wind, int _humidity, int _dewPoint, float _pressure,
 		float _visibility, int _uvIndex);
 	~Weather();
 
 	int getTemperature() { return temperature; };
-	string getWindDirection() { return windDirection; };
+	std::string getWindDirection() { return windDirection; };
 	int getWind() { return wind; };
 	int getHumidity() { return humidity; };
 	int getDewPoint() { return dewPoint; };
@@ -34,7 +34,7 @@ public:
 private:
 	WeatherAnimation weatherAnimation;
 	int temperature;
-	string windDirection;
+	std::string windDirection;
 	int wind;
 	int humidity;
 	int dewPoint;

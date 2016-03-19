@@ -6,6 +6,7 @@
 #include "../include/Girl.h"
 #include "../include/Kbhit.h"
 #include "../include/Printer.h"
+#include "../include/Weather.h"
 #include "../include/WeatherAnimation.h"
 
 #include <unistd.h>
