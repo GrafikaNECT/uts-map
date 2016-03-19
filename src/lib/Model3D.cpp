@@ -76,6 +76,13 @@ void Model3D::draw(Point3D eye){
 	//Scanline algorithm
 
 	std::vector<SolidPolygon> model2D = projectionResult(eye);
+	//sementara pake painter dulu
+	for (std::vector<SolidPolygon>::iterator it = model2D.begin();it!=model2D.end();it++){
+		it->draw();
+	}
+	return;
+
+
 	//cari xmin, xmax, ymin, ymax dari scanline
 	int xmax = 0;
 	int xmin = Printer::getXRes()-1;
