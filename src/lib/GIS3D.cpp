@@ -113,8 +113,27 @@ void GIS3D::toggleLayer(int layerNum){
 	}
 }
 
+void GIS3D::enableWeather(){
+	weatherEnabled=true;
+	//TODO tambahkan juga enable/disable animasi bila pakai animasi
+}
+void GIS3D::disableWeather(){
+	weatherEnabled=false;
+	//TODO tambahkan juga enable/disable animasi bila pakai animasi
+}
+void GIS3D::toggleWeather(){
+	if (isWeatherEnabled())
+		disableWeather();
+	else
+		enableWeather();
+}
+
 bool GIS3D::isLayerEnabled(int layerNum){
 	return layerEnabled[layerNum];
+}
+
+bool GIS3D::isWeatherEnabled(){
+	return weatherEnabled;
 }
 
 Point3D eye(400,400,1000);
@@ -126,6 +145,7 @@ void GIS3D::draw(){
                      .rotationResult(rotateDegX,centerPoint,'x')
 		     .rotationResult(rotateDegY,centerPoint,'y')
 		     .draw(eye);
+	//TODO tambahkan untuk draw weather jika enabled
 }
 
 void GIS3D::updateCombinedModel(){
