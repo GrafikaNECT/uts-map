@@ -1,0 +1,22 @@
+Nama Kota
+Posisi x,y
+Cuaca
+Temperature (Fahreinheit)
+Wind
+Humidity
+Dew Point (Embun)
+Pressure
+Visibility
+UV Index
+
+Banda Aceh
+44 89
+88
+partly_cloudy
+NE 5mph
+80%
+75
+29.80 inHg
+10.0 ml
+0 of 10 
+
