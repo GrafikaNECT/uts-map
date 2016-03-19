@@ -128,3 +128,132 @@ void CurveCollection::draw(){
 		}
 	}
 }
+
+// Operations
+void CurveCollection::move(int dx, int dy) {
+    std::list<Curve>::iterator itcurve = curves.begin();
+    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
+    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
+    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
+
+    while(itcurve != curves.end()) {
+        itcurve->move(dx, dy);
+        itcurve++;
+    }
+    while(itcurveshape != curveShapes.end()) {
+        itcurveshape->move(dx, dy);
+        itcurveshape++;
+    }
+}
+
+void CurveCollection::scale(float s) {
+    std::list<Curve>::iterator itcurve = curves.begin();
+    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
+    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
+    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
+
+    while(itcurve != curves.end()) {
+        itcurve->scale(s);
+        itcurve++;
+    }
+    while(itcurveshape != curveShapes.end()) {
+        itcurveshape->scale(s);
+        itcurveshape++;
+    }
+}
+
+void CurveCollection::scale(float sx, float sy) {
+    std::list<Curve>::iterator itcurve = curves.begin();
+    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
+    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
+    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
+
+    while(itcurve != curves.end()) {
+        itcurve->scale(sx, sy);
+        itcurve++;
+    }
+    while(itcurveshape != curveShapes.end()) {
+        itcurveshape->scale(sx, sy);
+        itcurveshape++;
+    }
+}
+
+void CurveCollection::scale(float s, int cx, int cy) {
+    std::list<Curve>::iterator itcurve = curves.begin();
+    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
+    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
+    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
+
+    while(itcurve != curves.end()) {
+        itcurve->scale(s, cx, cy);
+        itcurve++;
+    }
+    while(itcurveshape != curveShapes.end()) {
+        itcurveshape->scale(s, cx, cy);
+        itcurveshape++;
+    }
+}
+
+void CurveCollection::scale(float s, Point& cp) {
+    std::list<Curve>::iterator itcurve = curves.begin();
+    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
+    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
+    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
+
+    while(itcurve != curves.end()) {
+        itcurve->scale(s, cp);
+        itcurve++;
+    }
+    while(itcurveshape != curveShapes.end()) {
+        itcurveshape->scale(s, cp);
+        itcurveshape++;
+    }
+}
+
+void CurveCollection::rotate(float t) {
+    std::list<Curve>::iterator itcurve = curves.begin();
+    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
+    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
+    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
+
+    while(itcurve != curves.end()) {
+        itcurve->rotate(t);
+        itcurve++;
+    }
+    while(itcurveshape != curveShapes.end()) {
+        itcurveshape->rotate(t);
+        itcurveshape++;
+    }
+}
+
+void CurveCollection::rotate(float t, int cx, int cy) {
+    std::list<Curve>::iterator itcurve = curves.begin();
+    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
+    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
+    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
+
+    while(itcurve != curves.end()) {
+        itcurve->rotate(t, cx, cy);
+        itcurve++;
+    }
+    while(itcurveshape != curveShapes.end()) {
+        itcurveshape->rotate(t, cx, cy);
+        itcurveshape++;
+    }
+}
+
+void CurveCollection::rotate(float t, const Point& cp) {
+    std::list<Curve>::iterator itcurve = curves.begin();
+    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
+    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
+    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
+
+    while(itcurve != curves.end()) {
+        itcurve->rotate(t, cp);
+        itcurve++;
+    }
+    while(itcurveshape != curveShapes.end()) {
+        itcurveshape->rotate(t, cp);
+        itcurveshape++;
+    }
+}

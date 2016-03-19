@@ -33,6 +33,7 @@ int main(int argc, char *argv[] ){
 	std::ifstream fileLaut("assets/indonesia_map_elements/Laut.txt");
 	std::ifstream filePulau("assets/indonesia_map_elements/Pulau.txt");
 	std::ifstream fileKontur("assets/indonesia_map_elements/Kontur.txt");
+	WeatherInformation info;
 
 	//inisialisasi printer
 	Printer::initializePrinter();
@@ -41,6 +42,7 @@ int main(int argc, char *argv[] ){
 	gis2D.add(Image::fromStreamFormatMap(fileLaut));
 	gis2D.add(Image::fromStreamFormatMap(filePulau));
 	gis2D.add(Image::fromStreamFormatMap(fileKontur));
+	gis2D.add(Image::fromWeatherInformation(info));
 
 	//looping menerima kontrol untuk pan dan zoom serta menggambar
 	//jangan lupa ada kontrol untuk quit

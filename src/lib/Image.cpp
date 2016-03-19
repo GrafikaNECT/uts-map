@@ -4,9 +4,6 @@
  * Deskripsi			: Realisasi dari Image.h
  */
 
-#ifndef Image_cpp
-#define Image_cpp
-
 #include "../include/Image.h"
 #include "../include/Texture.h"
 
@@ -42,6 +39,14 @@ void Image::addLines(const std::list<Point>& points){
 void Image::addSolidPolygon(SolidPolygon solidPolygon){
 	solidPolygons.push_back(solidPolygon);
 	orderGambarSolidPolygon.push_back(numElmts);
+	numElmts++;
+}
+
+//menambah CurveCollections
+//perhatikan orderGambar (spek di bawah)
+void Image::addCurveCollection(CurveCollection curveCollection){
+	curveCollections.push_back(curveCollection);
+	orderGambarCurveCollection.push_back(numElmts);
 	numElmts++;
 }
 
@@ -162,6 +167,19 @@ Image Image::fromStreamFormatMap(std::istream& infile){
 	return retval;
 }
 
+
+// List of weather images
+Image Image::fromWeatherInformation(WeatherInformation weatherInformation) {
+	Image retval;
+
+	for(int i=0; i<weatherInformation.getListOfCities().size(); i++) {
+		retval.addCurveCollection(weatherInformation.getListOfCities().at(i).getWeather().getWeatherAnimation().getFrames().at(0));
+	}
+
+	return retval;
+}
+
+
 Image Image::combineImages(std::vector<Image>& image){
 	Image retval;
 	for (std::vector<Image>::iterator it=image.begin();it!=image.end();it++){
@@ -279,30 +297,36 @@ Image Image::scaleResult(float scaleX, float scaleY){
 void Image::draw(){
 	std::list<Line>::iterator itline = lines.begin();
 	std::list<SolidPolygon>::iterator itpol = solidPolygons.begin();
+	std::list<CurveCollection>::iterator itcur = curveCollections.begin();
 	std::list<int>::iterator itordline = orderGambarLine.begin();
 	std::list<int>::iterator itordpol = orderGambarSolidPolygon.begin();
+	std::list<int>::iterator itordcur = orderGambarCurveCollection.begin();
 	
-	while (itline != lines.end() || itpol != solidPolygons.end()){
+	while (itline != lines.end() || itpol != solidPolygons.end() || itcur != curveCollections.end()){
 		if (itordpol==orderGambarSolidPolygon.end()){
 			itline->draw();
 			itline++;
 			itordline++;
-		}else if(itordline==orderGambarLine.end()){
+		} else if(itordline==orderGambarLine.end()){
 			itpol->draw();
 			itpol++;
 			itordpol++;
-		}else if (*itordline<*itordpol){
+		} else if(itordcur==orderGambarCurveCollection.end()) {
+			itcur->draw();
+			itcur++;
+			itordcur++;
+		} else if (*itordline<*itordpol && *itordline<*itordcur) {
 			itline->draw();
 			itline++;
 			itordline++;
-		}else{
+		} else if (*itordpol<*itordline && *itordpol<*itordcur) {
 			itpol->draw();
 			itpol++;
 			itordpol++;
+		} else {
+			itcur->draw();
+			itcur++;
+			itordcur++;
 		}
 	}
 }
-
-#endif
-
-

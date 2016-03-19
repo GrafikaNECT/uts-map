@@ -60,6 +60,16 @@ class CurveCollection{
 	//Curve dan curveShape
 	void draw();
 
+	// Operations
+	void move(int dx, int dy);
+	void scale(float s);
+	void scale(float sx, float sy);
+	void scale(float s, int cx, int cy);
+	void scale(float s, Point& cp);
+	void rotate(float t);
+	void rotate(float t, int cx, int cy);
+	void rotate(float t, const Point& cp);
+
 	private:
 	std::list<Curve> curves;
 	std::list<CurveShape> curveShapes;

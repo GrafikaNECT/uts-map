@@ -11,11 +11,14 @@
 #include <pthread.h>
 #include <unistd.h>
 
+#define SIZE 20
+
 class Animation {
 public:
 	Animation();
 	~Animation();
 	void addFrame(string filename);
+	void addFrame(string filename, int x, int y);
 	void startAnimation();
 	void stopAnimation(); 
 

@@ -9,15 +9,15 @@
 class WeatherAnimation : public Animation {
 public:
 	WeatherAnimation() {};
-	WeatherAnimation(int weatherType);
+	WeatherAnimation(int weatherType, int x, int y);
 	~WeatherAnimation();
 		
 private:
-	void createCloudyWeather();
-	void createRainyWeather();
-	void createSunnyWeather();
-	void createSunnyCloudyWeather();
-	void createStormyWeather();
+	void createCloudyWeather(int x, int y);
+	void createRainyWeather(int x, int y);
+	void createSunnyWeather(int x, int y);
+	void createSunnyCloudyWeather(int x, int y);
+	void createStormyWeather(int x, int y);
 
 
 	int type;

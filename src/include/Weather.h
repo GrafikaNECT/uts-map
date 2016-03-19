@@ -9,11 +9,12 @@
 class Weather {
 public:
 	Weather() {	};
-	Weather(int weatherType, int _temperature, std::string _windDirection,
+	Weather(int x, int y, int weatherType, int _temperature, std::string _windDirection,
 		int _wind, int _humidity, int _dewPoint, float _pressure,
 		float _visibility, int _uvIndex);
 	~Weather() { };
 
+	WeatherAnimation getWeatherAnimation() { return weatherAnimation; };
 	int getTemperature() { return temperature; };
 	std::string getWindDirection() { return windDirection; };
 	int getWind() { return wind; };
@@ -23,6 +24,7 @@ public:
 	float getVisibility() { return visibility; };
 	int getUVIndex() { return uvIndex; };
 
+	void setWeatherAnimation(WeatherAnimation _weatherAnimation) { weatherAnimation = _weatherAnimation; };
 	void setTemperature(int _temperature) { temperature = _temperature; };
 	void setWindDirection(string _windDirection) { windDirection = _windDirection; };
 	void setWind(int _wind) { wind = _wind; };

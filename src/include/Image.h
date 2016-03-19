@@ -1,9 +1,11 @@
 #ifndef Image_h
 #define Image_h
 
+#include "../include/CurveCollection.h"
 #include "../include/Line.h"
 #include "../include/Point.h"
 #include "../include/SolidPolygon.h"
+#include "../include/WeatherInformation.h"
 #include <list>
 #include <vector>
 
@@ -30,6 +32,10 @@ class Image {
 	//perhatikan orderGambar (spek di bawah)
 	void addSolidPolygon(SolidPolygon solidPolygon);
 
+	//menambah CurveCollections
+	//perhatikan orderGambar (spek di bawah)
+	void addCurveCollection(CurveCollection curveCollection);
+
 	//membuat image dari streamImage
 	//
 	//sebelumnya meload stream tekstur terlebih dahulu
@@ -51,6 +57,8 @@ class Image {
 				std::istream& streamTekstur);
 
 	static Image fromStreamFormatMap(std::istream& infile);
+
+	static Image fromWeatherInformation(WeatherInformation weatherInformation);
 
 	static Image combineImages(std::vector<Image>& image);
 
@@ -74,6 +82,7 @@ class Image {
 	private:
 	std::list<Line> lines;
 	std::list<SolidPolygon> solidPolygons;
+	std::list<CurveCollection> curveCollections;
 
 //untuk iterasi menggambar,
 //saat di-add, ini diisi dengan order gambar yang menaik
@@ -82,6 +91,7 @@ class Image {
 //	orderGambarSolidPolygon: {2,5}
 	std::list<int> orderGambarLine;
 	std::list<int> orderGambarSolidPolygon;
+	std::list<int> orderGambarCurveCollection;
 
 	//untuk mentrack saat add orderGambar
 	int numElmts=0;

@@ -15,6 +15,13 @@ void Animation::addFrame(string filename) {
 	frames.push_back(CurveCollection(filename));
 }
 
+void Animation::addFrame(string filename, int x, int y) {
+	currentFrame = 0;
+	cout << filename << endl;
+	frames.push_back(CurveCollection(filename));
+	frames.at(frames.size()-1).move(x-SIZE, y-SIZE);
+}
+
 void Animation::startAnimation() {
 	cout << "frame size: " << frames.size() << endl;
 	if (frames.size() > 1) {

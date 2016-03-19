@@ -15,7 +15,7 @@ WeatherInformation::~WeatherInformation() {
 
 void WeatherInformation::parse() {
 	std::string line;
-  	std::ifstream myfile("../assets/indonesia_city_coordinates/kota.txt");
+  	std::ifstream myfile("assets/indonesia_city_coordinates/kota.txt");
   	if (myfile.is_open())
   	{
 		while ( getline (myfile,line) )

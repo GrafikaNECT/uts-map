@@ -13,6 +13,8 @@ public:
 	~WeatherInformation();
 	void parse();
 
+	std::vector<City> getListOfCities() { return listOfCities; };
+
 private:
 	std::vector<City> listOfCities;
 };

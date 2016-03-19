@@ -1,9 +1,9 @@
 #include "../include/Weather.h"
 
-Weather::Weather(int weatherType, int _temperature, string _windDirection,
+Weather::Weather(int x, int y, int weatherType, int _temperature, string _windDirection,
 		int _wind, int _humidity, int _dewPoint, float _pressure,
 		float _visibility, int _uvIndex){
-	weatherAnimation = WeatherAnimation(weatherType);
+	weatherAnimation = WeatherAnimation(weatherType, x, y);
 	temperature = _temperature;
 	windDirection = _windDirection;
 	wind = _wind;
