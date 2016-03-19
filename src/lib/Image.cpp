@@ -8,6 +8,7 @@
 #include "../include/Texture.h"
 
 #include <vector>
+#include <climits>
 
 //menambah Line
 //perhatikan orderGambar (spek di bawah)
@@ -187,22 +188,7 @@ Image Image::fromWeatherInformation(WeatherInformation weatherInformation) {
 Image Image::combineImages(std::vector<Image>& image){
 	Image retval;
 	for (std::vector<Image>::iterator it=image.begin();it!=image.end();it++){
-		std::list<Line>::iterator itline = it->lines.begin();
-		std::list<SolidPolygon>::iterator itpol = it->solidPolygons.begin();
-		std::list<int>::iterator itordline = it->orderGambarLine.begin();
-		std::list<int>::iterator itordpol = it->orderGambarSolidPolygon.begin();
-		int i=0;
-		while (itline != it->lines.end() || itpol != it->solidPolygons.end()){
-			if (itordpol==it->orderGambarSolidPolygon.end()){
-				retval.addLine(*itline);
-			}else if(itordline==it->orderGambarLine.end()){
-				retval.addSolidPolygon(*itpol);
-			}else if (*itordline<*itordpol){
-				retval.addLine(*itline);
-			}else{
-				retval.addSolidPolygon(*itpol);
-			}
-		}
+		retval.combine(*it);
 	}
 	return retval;
 }
@@ -210,31 +196,34 @@ Image Image::combineImages(std::vector<Image>& image){
 void Image::combine(Image& image){
 	std::list<Line>::iterator itline = image.lines.begin();
 	std::list<SolidPolygon>::iterator itpol = image.solidPolygons.begin();
-	std::list<CurveCollection>::iterator itcur = curveCollections.begin();
-	std::list<int>::iterator itordline = image.orderGambarLine.begin();
-	std::list<int>::iterator itordpol = image.orderGambarSolidPolygon.begin();
+	std::list<CurveCollection>::iterator itcur = image.curveCollections.begin();
+
+	//pakai sentinel
+	std::list<int> orderGambarLine = image.orderGambarLine;
+	std::list<int> orderGambarSolidPolygon = image.orderGambarSolidPolygon;
+	std::list<int> orderGambarCurveCollection = image.orderGambarCurveCollection;
+	orderGambarLine.push_back(INT_MAX);
+	orderGambarSolidPolygon.push_back(INT_MAX);
+	orderGambarCurveCollection.push_back(INT_MAX);
+
+	std::list<int>::iterator itordline = orderGambarLine.begin();
+	std::list<int>::iterator itordpol = orderGambarSolidPolygon.begin();
 	std::list<int>::iterator itordcur = orderGambarCurveCollection.begin();
 	int i=0;
 	cout << "COMBINE CUR " << image.curveCollections.size() << endl;
-	while (itline != image.lines.end() || itpol != image.solidPolygons.end() || itcur != curveCollections.end()){
-		if (itordpol==image.orderGambarSolidPolygon.end() && itordcur==orderGambarCurveCollection.end()){
+	while (itline != image.lines.end() || itpol != image.solidPolygons.end() || itcur != image.curveCollections.end()){
+		if (*itordline<*itordpol && *itordline<*itordcur) {
 			addLine(*itline);
 			itline++;
-		} else if(itordline==image.orderGambarLine.end() && itordcur==orderGambarCurveCollection.end()){
-			addSolidPolygon(*itpol);
-			itpol++;
-		} else if(itordpol==orderGambarSolidPolygon.end() && itordline==orderGambarLine.end()) {
-			addCurveCollection(*itcur);
-			itcur++;
-		} else if (*itordline<*itordpol && *itordline<*itordcur) {
-			addLine(*itline);
-			itline++;
+			itordline++;
 		} else if (*itordpol<*itordline && *itordpol<*itordcur) {
 			addSolidPolygon(*itpol);
 			itpol++;
+			itordpol++;
 		} else {
 			addCurveCollection(*itcur);
 			itcur++;
+			itordcur++;
 		}
 	}
 }
@@ -242,32 +231,23 @@ void Image::combine(Image& image){
 //clip semua elemen
 Image Image::clip(Point min, Point max){
 	Image retval;
-	std::list<Line>::iterator itline = image.lines.begin();
-	std::list<SolidPolygon>::iterator itpol = image.solidPolygons.begin();
+	std::list<Line>::iterator itline = lines.begin();
+	std::list<SolidPolygon>::iterator itpol = solidPolygons.begin();
 	std::list<CurveCollection>::iterator itcur = curveCollections.begin();
-	std::list<int>::iterator itordline = image.orderGambarLine.begin();
-	std::list<int>::iterator itordpol = image.orderGambarSolidPolygon.begin();
+
+	//pakai sentinel
+	std::list<int> orderGambarLine = this->orderGambarLine;
+	std::list<int> orderGambarSolidPolygon = this->orderGambarSolidPolygon;
+	std::list<int> orderGambarCurveCollection = this->orderGambarCurveCollection;
+	orderGambarLine.push_back(INT_MAX);
+	orderGambarSolidPolygon.push_back(INT_MAX);
+	orderGambarCurveCollection.push_back(INT_MAX);
+	std::list<int>::iterator itordline = orderGambarLine.begin();
+	std::list<int>::iterator itordpol = orderGambarSolidPolygon.begin();
 	std::list<int>::iterator itordcur = orderGambarCurveCollection.begin();
 	int i=0;
 	while (itline != lines.end() || itpol != solidPolygons.end() || itcur != curveCollections.end()){
-		if (itordpol==orderGambarSolidPolygon.end() && itordcur==orderGambarCurveCollection.end()){
-			Line l = itline->clip(min,max);
-			if (!(l.getX1()==-1 && l.getX2()==-1
-				&&l.getY1()==-1 && l.getY2()==-1)){
-				retval.addLine(l);
-			}
-			itline++;
-			itordline++;
-		} else if(itordline==orderGambarLine.end() && itordcur==orderGambarCurveCollection.end()){
-			retval.addSolidPolygon(itpol->clip(min,max));
-			itpol++;
-			itordpol++;
-		} else if(itordpol==orderGambarSolidPolygon.end() && itordline==orderGambarLine.end()) {
-			// TODO
-			retval.addCurveCollection(itcur);
-			itcur++;
-			itordcur++;
-		} else if (*itordline<*itordpol && *itordline<*itordcur) {
+		if (*itordline<*itordpol && *itordline<*itordcur) {
 			Line l = itline->clip(min,max);
 			if (!(l.getX1()==-1 && l.getX2()==-1
 				&&l.getY1()==-1 && l.getY2()==-1)){
@@ -281,7 +261,7 @@ Image Image::clip(Point min, Point max){
 			itordpol++;
 		} else {
 			// TODO
-			retval.addCurveCollection(itcur);
+			retval.addCurveCollection(*itcur);
 			itcur++;
 			itordcur++;
 		}
@@ -323,42 +303,29 @@ void Image::draw(){
 	std::list<Line>::iterator itline = lines.begin();
 	std::list<SolidPolygon>::iterator itpol = solidPolygons.begin();
 	std::list<CurveCollection>::iterator itcur = curveCollections.begin();
+
+	//pakai sentinel
+	std::list<int> orderGambarLine = this->orderGambarLine;
+	std::list<int> orderGambarSolidPolygon = this->orderGambarSolidPolygon;
+	std::list<int> orderGambarCurveCollection = this->orderGambarCurveCollection;
+	orderGambarLine.push_back(INT_MAX);
+	orderGambarSolidPolygon.push_back(INT_MAX);
+	orderGambarCurveCollection.push_back(INT_MAX);
+
 	std::list<int>::iterator itordline = orderGambarLine.begin();
 	std::list<int>::iterator itordpol = orderGambarSolidPolygon.begin();
 	std::list<int>::iterator itordcur = orderGambarCurveCollection.begin();
-
-	cout << "size line: " << lines.size() << endl;
-	cout << "size poly: " << solidPolygons.size() << endl;
-	cout << "size curv: " << curveCollections.size() << endl;
 	
 	while (itline != lines.end() || itpol != solidPolygons.end() || itcur != curveCollections.end()){
-		if (itordpol==orderGambarSolidPolygon.end() && itordcur==orderGambarCurveCollection.end()){
-			//cout << "DRAW LINE" << endl;
-			itline->draw();
-			itline++;
-			itordline++;
-		} else if(itordline==orderGambarLine.end() && itordcur==orderGambarCurveCollection.end()){
-			//cout << "DRAW POLY" << endl;
-			itpol->draw();
-			itpol++;
-			itordpol++;
-		} else if(itordpol==orderGambarSolidPolygon.end() && itordline==orderGambarLine.end()) {
-			cout << "DRAW CURVE" << endl;
-			itcur->draw();
-			itcur++;
-			itordcur++;
-		} else if (*itordline<*itordpol && *itordline<*itordcur) {
-			cout << "DRAW LINE 2" << endl;
+		if (*itordline<*itordpol && *itordline<*itordcur) {
 			itline->draw();
 			itline++;
 			itordline++;
 		} else if (*itordpol<*itordline && *itordpol<*itordcur) {
-			cout << "DRAW POL 2" << endl;
 			itpol->draw();
 			itpol++;
 			itordpol++;
 		} else {
-			cout << "DRAW CURVE 2" << endl;
 			itcur->draw();
 			itcur++;
 			itordcur++;
