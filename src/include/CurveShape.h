@@ -10,7 +10,7 @@
 #include "Texture.h"
 
 class CurveShape: public std::vector<Point>{
-	public:
+public:
 	CurveShape(std::string fileName);
 	CurveShape(Texture tOutline = Texture::createSingleColorTexture(0,0,0,0), Texture tFill = Texture::createSingleColorTexture(250,220,210,255)):std::vector<Point>(){outlineTexture=tOutline;fillTexture=tFill;};
 	CurveShape(std::vector<Point>& vec, Texture tOutline = Texture::createSingleColorTexture(0,0,0,0), Texture tFill = Texture::createSingleColorTexture(250,220,210,255)):std::vector<Point>(vec),outlineTexture(tOutline), fillTexture(tFill){};
@@ -20,7 +20,17 @@ class CurveShape: public std::vector<Point>{
 
 	void draw();
 
-	private:
+	// Operations
+	void move(int dx, int dy);
+	void scale(float s);
+	void scale(float sx, float sy);
+	void scale(float s, int cx, int cy);
+	void scale(float s, Point& cp);
+	void rotate(float t);
+	void rotate(float t, int cx, int cy);
+	void rotate(float t, const Point& cp);
+
+private:
 	Texture outlineTexture;
 	Texture fillTexture;
 };

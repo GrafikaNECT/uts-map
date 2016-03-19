@@ -6,7 +6,7 @@
 #include "Texture.h"
 
 class SolidPolygon: public std::vector<Point>{
-	public:
+public:
 	SolidPolygon(Texture t = Texture::createSingleColorTexture(0,0,0,0)):std::vector<Point>(){texture=t;};
 	SolidPolygon(std::vector<Point>::size_type s,Texture t = Texture::createSingleColorTexture(0,0,0,0)):std::vector<Point>(s){texture=t;};
 	SolidPolygon(std::vector<Point>& vec, Texture t = Texture::createSingleColorTexture(0,0,0,0)):std::vector<Point>(vec),texture(t){};
@@ -28,7 +28,7 @@ class SolidPolygon: public std::vector<Point>{
 
 	SolidPolygon clip(Point min, Point max);
 
-	private:
+private:
 
 	Texture texture;
 	
