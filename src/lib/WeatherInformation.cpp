@@ -79,6 +79,8 @@ void WeatherInformation::parse() {
         listOfCities.push_back(city);
     	}
     	myfile.close();
+
+      std::cout << "Number of cities : " << listOfCities.size() << "\n";
   	}
 
   	else std::cout << "Unable to open file";
