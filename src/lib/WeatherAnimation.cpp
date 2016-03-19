@@ -1,21 +1,22 @@
+#include "../include/Weather.h"
 #include "../include/WeatherAnimation.h"
 
 WeatherAnimation::WeatherAnimation(int weatherType) {
 	type = weatherType;
 	switch (type) {
-		case WeatherAnimation::CLOUDY:
+		case Weather::CLOUDY:
 		  createCloudyWeather();
 		  break;
-		case WeatherAnimation::RAINY:
+		case Weather::RAINY:
 		  createRainyWeather();
 		  break;
-		case WeatherAnimation::SUNNY:
+		case Weather::SUNNY:
 		  createSunnyWeather();
 		  break;
-		case WeatherAnimation::STORMY:
+		case Weather::STORMY:
 		  createStormyWeather();
 		  break;
-		case WeatherAnimation::SUNCLOUD:
+		case Weather::SUNCLOUD:
 		  createSunnyCloudyWeather();
 		  break;
 		default:

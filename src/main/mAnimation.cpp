@@ -19,7 +19,7 @@ int main(){
 	Printer::initializePrinter();
 	Printer::drawCanvas(255,255,255,255);
 
-	WeatherAnimation cloudy = WeatherAnimation(WeatherAnimation::SUNCLOUD);
+	WeatherAnimation cloudy = WeatherAnimation(Weather::SUNCLOUD);
 	cloudy.startAnimation();
 
 	while (true) {
