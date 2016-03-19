@@ -1,22 +1,335 @@
-Nama Kota
-Posisi x,y
-Cuaca
-Temperature (Fahreinheit)
-Wind
-Humidity
-Dew Point (Embun)
-Pressure
-Visibility
-UV Index
-
 Banda Aceh
 44 89
 88
-partly_cloudy
-NE 5mph
-80%
+partly cloudy
+NE 5
+80
 75
-29.80 inHg
-10.0 ml
-0 of 10 
+29.80
+10.0
+0
 
+Medan
+158 154
+partly cloudy
+N 7
+79
+79
+29.77
+3.1
+0
+
+Pekan Baru
+255 261
+cloudy
+S 2
+75
+79
+29.71
+2.9
+0
+
+Padang
+220 311
+stormy
+E 2
+88
+77
+29.82
+4.3
+0
+
+Jambi
+331 337
+stormy
+NNE 5
+88
+75
+29.81
+6.2
+0
+
+Palembang
+371 383
+rainy
+ENE 6
+89
+77
+29.80
+6.2
+0
+
+Bengkulu
+286 410
+cloudy
+S 2
+78
+78
+29.77
+5.6
+0
+
+Bandar Lampung
+387 467
+cloudy
+ESE 2
+87
+78
+29.82
+10.0
+0
+
+Tanjung Pinang
+363 247
+sunny
+NE 5
+77
+75
+29.83
+6.2
+0
+
+Pangkal Pinang
+416 353
+cloudy
+NNE 1
+95
+75
+29.83
+10.0
+0
+
+Jakarta
+442 492
+cloudy
+S 3
+89
+81
+29.83
+3.1
+0
+
+Bandung
+470 517
+stormy
+N 1
+100
+72
+29.86
+2.4
+0
+
+Semarang
+566 522
+stormy
+SSE 4
+82
+78
+29.83
+10.0
+0
+
+Yogyakarta
+564 548
+cloudy
+N 3
+90
+76
+29.84
+10.0
+0
+
+Surabaya
+642 535
+partly cloudy
+SE 5
+84
+79
+29.83
+4.3
+0
+
+Denpasar
+732 577
+partly cloudy
+ESE 6
+79
+79
+29.83
+6.2
+0
+
+Mataram
+766 576
+sunny
+calm
+94
+79
+29.88
+5.0
+0
+
+Kupang
+1021 632
+partly cloudy
+calm
+94
+77
+29.88
+5.0
+0
+
+Pontianak
+527 280
+partly cloudy
+W 3
+94
+78
+29.82
+10.0
+0
+
+Banjarmasin
+710 392
+stormy
+SSE 2
+79
+77
+29.83
+6.2
+0
+
+Palangkaraya
+688 356
+stormy
+SSE 4
+88
+76
+29.84
+7.0
+0
+
+Samarinda
+798 296
+partly cloudy
+NE 4
+90
+77
+29.84
+10.0
+0
+
+Tanjung Selor
+810 202
+partly cloudy
+ESE 3
+98
+74
+29.86
+10.0
+0
+
+Manado
+1063 227
+sunny
+ESE 2
+89
+73
+29.88
+6.2
+0
+
+Gorontalo
+1002 260
+cloudy
+ESE 2
+93
+75
+29.86
+10.0
+0
+
+Palu
+889 309
+cloudy
+ESE 2
+99
+72
+29.88
+10.0
+0
+
+Mamuju
+860 374
+ENE 4
+97
+75
+29.87
+10.0
+0
+
+Kendari
+982 416
+cloudy
+78
+NNE 2
+96
+77
+29.85
+10
+0
+
+Makassar
+877 459
+sunny
+82
+SE 2
+100
+82
+29.85
+5
+0
+
+Sofifi
+1165 253
+cloudy
+81
+NE 6
+78
+74
+29.86
+10.0
+0
+
+Ambon
+1177 406
+cloudy
+82
+WNW 2
+77
+74
+29.82
+6.2
+0
+
+Manokwari
+1376 309
+rainy
+78
+W 2
+95
+77
+29.86
+2.5
+0
+
+Jayapura
+1608 367
+cloudy
+80
+W 5
+92
+77
+29.84
+2.5
+0
