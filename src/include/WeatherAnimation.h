@@ -8,6 +8,7 @@
 
 class WeatherAnimation : public Animation {
 public:
+	WeatherAnimation() {};
 	WeatherAnimation(int weatherType);
 	~WeatherAnimation();
 

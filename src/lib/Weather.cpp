@@ -3,7 +3,7 @@
 Weather::Weather(int weatherType, int _temperature, string _windDirection,
 		int _wind, int _humidity, int _dewPoint, float _pressure,
 		float _visibility, int _uvIndex){
-	weatherType = WeatherAnimation(weatherType);
+	weatherAnimation = WeatherAnimation(weatherType);
 	temperature = _temperature;
 	windDirection = _windDirection;
 	wind = _wind;

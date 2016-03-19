@@ -2,6 +2,7 @@
 #define City_h
 
 #include "../include/Weather.h"
+#include "../include/Point.h"
 #include <cstdlib>
 #include <string.h>
 #include <unistd.h>
@@ -11,7 +12,7 @@ public:
 	City(std::string name, int x, int y, int weatherType, int _temperature, std::string _windDirection,
 		int _wind, int _humidity, int _dewPoint, float _pressure,
 		float _visibility, int _uvIndex);
-	~City();
+	~City() {};
 
 	std::string getCityName() { return name; };
 	Point getLocation() { return location; };
@@ -19,7 +20,7 @@ public:
 
 	void setCityName(std::string _name) { name = _name; };
 	void setLocation(int x, int y ) { location = Point(x,y); };
-	void setWeather (Weather _weather) { weather = Weather; };
+	void setWeather (Weather _weather) { weather = _weather; };
 
 
 private:

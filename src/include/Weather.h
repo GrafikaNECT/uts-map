@@ -8,10 +8,11 @@
 
 class Weather {
 public:
+	Weather() {	};
 	Weather(int weatherType, int _temperature, std::string _windDirection,
 		int _wind, int _humidity, int _dewPoint, float _pressure,
 		float _visibility, int _uvIndex);
-	~Weather();
+	~Weather() { };
 
 	int getTemperature() { return temperature; };
 	std::string getWindDirection() { return windDirection; };

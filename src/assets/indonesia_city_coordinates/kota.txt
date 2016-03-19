@@ -1,7 +1,7 @@
 Banda Aceh
 44 89
-88
 partly cloudy
+79
 NE 5
 80
 75
@@ -12,6 +12,7 @@ NE 5
 Medan
 158 154
 partly cloudy
+79
 N 7
 79
 79
@@ -22,6 +23,7 @@ N 7
 Pekan Baru
 255 261
 cloudy
+79
 S 2
 75
 79
@@ -32,6 +34,7 @@ S 2
 Padang
 220 311
 stormy
+85
 E 2
 88
 77
@@ -42,6 +45,7 @@ E 2
 Jambi
 331 337
 stormy
+83
 NNE 5
 88
 75
@@ -52,6 +56,7 @@ NNE 5
 Palembang
 371 383
 rainy
+84
 ENE 6
 89
 77
@@ -62,6 +67,7 @@ ENE 6
 Bengkulu
 286 410
 cloudy
+80
 S 2
 78
 78
@@ -72,6 +78,7 @@ S 2
 Bandar Lampung
 387 467
 cloudy
+87
 ESE 2
 87
 78
@@ -82,6 +89,7 @@ ESE 2
 Tanjung Pinang
 363 247
 sunny
+78
 NE 5
 77
 75
@@ -92,6 +100,7 @@ NE 5
 Pangkal Pinang
 416 353
 cloudy
+80
 NNE 1
 95
 75
@@ -102,6 +111,7 @@ NNE 1
 Jakarta
 442 492
 cloudy
+85
 S 3
 89
 81
@@ -112,6 +122,7 @@ S 3
 Bandung
 470 517
 stormy
+80
 N 1
 100
 72
@@ -122,6 +133,7 @@ N 1
 Semarang
 566 522
 stormy
+80
 SSE 4
 82
 78
@@ -132,6 +144,7 @@ SSE 4
 Yogyakarta
 564 548
 cloudy
+88
 N 3
 90
 76
@@ -142,6 +155,7 @@ N 3
 Surabaya
 642 535
 partly cloudy
+80
 SE 5
 84
 79
@@ -152,6 +166,7 @@ SE 5
 Denpasar
 732 577
 partly cloudy
+80
 ESE 6
 79
 79
@@ -162,7 +177,8 @@ ESE 6
 Mataram
 766 576
 sunny
-calm
+88
+ESE 6
 94
 79
 29.88
@@ -172,7 +188,8 @@ calm
 Kupang
 1021 632
 partly cloudy
-calm
+90
+ESE 6
 94
 77
 29.88
@@ -182,6 +199,7 @@ calm
 Pontianak
 527 280
 partly cloudy
+90
 W 3
 94
 78
@@ -192,6 +210,7 @@ W 3
 Banjarmasin
 710 392
 stormy
+78
 SSE 2
 79
 77
@@ -202,6 +221,7 @@ SSE 2
 Palangkaraya
 688 356
 stormy
+80
 SSE 4
 88
 76
@@ -212,6 +232,7 @@ SSE 4
 Samarinda
 798 296
 partly cloudy
+82
 NE 4
 90
 77
@@ -222,6 +243,7 @@ NE 4
 Tanjung Selor
 810 202
 partly cloudy
+90
 ESE 3
 98
 74
@@ -232,6 +254,7 @@ ESE 3
 Manado
 1063 227
 sunny
+80
 ESE 2
 89
 73
@@ -242,6 +265,7 @@ ESE 2
 Gorontalo
 1002 260
 cloudy
+80
 ESE 2
 93
 75
@@ -252,6 +276,7 @@ ESE 2
 Palu
 889 309
 cloudy
+82
 ESE 2
 99
 72
@@ -261,6 +286,8 @@ ESE 2
 
 Mamuju
 860 374
+cloudy
+80
 ENE 4
 97
 75
@@ -271,7 +298,7 @@ ENE 4
 Kendari
 982 416
 cloudy
-78
+81
 NNE 2
 96
 77
@@ -282,7 +309,7 @@ NNE 2
 Makassar
 877 459
 sunny
-82
+90
 SE 2
 100
 82
@@ -293,7 +320,7 @@ SE 2
 Sofifi
 1165 253
 cloudy
-81
+76
 NE 6
 78
 74
@@ -304,7 +331,7 @@ NE 6
 Ambon
 1177 406
 cloudy
-82
+75
 WNW 2
 77
 74
@@ -315,7 +342,7 @@ WNW 2
 Manokwari
 1376 309
 rainy
-78
+80
 W 2
 95
 77
@@ -326,7 +353,7 @@ W 2
 Jayapura
 1608 367
 cloudy
-80
+83
 W 5
 92
 77
