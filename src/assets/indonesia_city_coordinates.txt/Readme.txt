@@ -4,10 +4,10 @@ Nama Kota
 Posisi x,y
 Cuaca
 Temperature (Fahreinheit)
-Wind
-Humidity
+Wind (mph)
+Humidity (%)
 Dew Point (Embun)
-Pressure
-Visibility
-UV Index
+Pressure (inHg)
+Visibility (mi)
+UV Index (of 10)
 
