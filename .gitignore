@@ -30,3 +30,7 @@
 #temporary files
 *~
 *.*~
+
+#hasil build 
+bin/*
+bin/
