@@ -31,6 +31,9 @@ class GIS3D{
 	int panX;
 	int panY;
 	int zoomAmount;
+	int rotateDegX;
+	int rotateDegY;
+	int rotateDegZ;
 };
 
 #endif

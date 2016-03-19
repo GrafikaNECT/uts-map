@@ -60,6 +60,24 @@ int main(){
 		case 'x':
 			gis3D.zoom("out");
 		break;
+		case 'r':
+			gis3D.rotate("zMin");
+		break;
+		case 'y':
+			gis3D.rotate("zPlus");
+		break;
+		case 't':
+			gis3D.rotate("xMin");
+		break;
+		case 'g':
+			gis3D.rotate("xPlus");
+		break;
+		case 'f':
+			gis3D.rotate("yMin");
+		break;
+		case 'h':
+			gis3D.rotate("yPlus");
+		break;
 		case 'q':
 			cont=false;
 		break;
