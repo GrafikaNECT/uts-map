@@ -32,7 +32,7 @@ public:
 
 	CurveShape moveResult(Point delta);
 	CurveShape moveResult(int deltax, int deltay);
-	CurveShape scaleResult(float scale);
+	CurveShape scaleResult(float s);
 
 	CurveShape scaleResult(float scaleX, float scaleY);
 	CurveShape rotationResult(float deltaDegree);

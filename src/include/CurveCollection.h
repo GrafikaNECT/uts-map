@@ -72,7 +72,7 @@ class CurveCollection{
 
 	CurveCollection moveResult(Point delta);
 	CurveCollection moveResult(int deltax, int deltay);
-	CurveCollection scaleResult(float scale);
+	CurveCollection scaleResult(float s);
 
 	CurveCollection scaleResult(float scaleX, float scaleY);
 	CurveCollection rotationResult(float deltaDegree);

@@ -259,81 +259,30 @@ void CurveCollection::rotate(float t, const Point& cp) {
 }
 
 CurveCollection CurveCollection::moveResult(Point delta){
-    return moveResult(delta.getX(), delta.getY());
+    move(delta.getX(), delta.getY());
+    return *this;
 }
 
 CurveCollection CurveCollection::moveResult(int deltax, int deltay){
-    CurveCollection retval = *this;
-
-    std::list<Curve>::iterator itcurve = retval.curves.begin();
-    std::list<CurveShape>::iterator itcurveshape = retval.curveShapes.begin();
-    std::list<int>::iterator itordcurve = retval.orderGambarCurve.begin();
-    std::list<int>::iterator itordcurveshape = retval.orderGambarCurveShape.begin();
-
-    while(itcurve != curves.end()) {
-        itcurve->move(deltax, deltay);
-        itcurve++;
-    }
-    while(itcurveshape != curveShapes.end()) {
-        itcurveshape->move(deltax, deltay);
-        itcurveshape++;
-    }
-    return retval;
+    move(deltax, deltay);
+    return *this;
 }
-CurveCollection CurveCollection::scaleResult(float scale){
-    CurveCollection retval = *this;
-
-    std::list<Curve>::iterator itcurve = retval.curves.begin();
-    std::list<CurveShape>::iterator itcurveshape = retval.curveShapes.begin();
-    std::list<int>::iterator itordcurve = retval.orderGambarCurve.begin();
-    std::list<int>::iterator itordcurveshape = retval.orderGambarCurveShape.begin();
-
-    while(itcurve != curves.end()) {
-        itcurve->scale(scale);
-        itcurve++;
-    }
-    while(itcurveshape != curveShapes.end()) {
-        itcurveshape->scale(scale);
-        itcurveshape++;
-    }
-    return retval;
+CurveCollection CurveCollection::scaleResult(float s){
+    scale(s);
+    return *this;
 }
 
 CurveCollection CurveCollection::scaleResult(float scaleX, float scaleY){
-    CurveCollection retval = *this;
-
-    std::list<Curve>::iterator itcurve = retval.curves.begin();
-    std::list<CurveShape>::iterator itcurveshape = retval.curveShapes.begin();
-    std::list<int>::iterator itordcurve = retval.orderGambarCurve.begin();
-    std::list<int>::iterator itordcurveshape = retval.orderGambarCurveShape.begin();
-
-    while(itcurve != curves.end()) {
-        itcurve->scale(scaleX, scaleY);
-        itcurve++;
-    }
-    while(itcurveshape != curveShapes.end()) {
-        itcurveshape->scale(scaleX, scaleY);
-        itcurveshape++;
-    }
-    return retval;
+    scale(scaleX, scaleY);
+    return *this;
 }
 
 CurveCollection CurveCollection::rotationResult(float deltaDegree){
-    std::list<Curve>::iterator itcurve = curves.begin();
-    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
-    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
-    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
-
-    //TODO
-    return CurveCollection();
+    rotate(deltaDegree);
+    return *this;
 }
 
 CurveCollection CurveCollection::rotationResult(float deltaDegree, Point poros){
-    std::list<Curve>::iterator itcurve = curves.begin();
-    std::list<CurveShape>::iterator itcurveshape = curveShapes.begin();
-    std::list<int>::iterator itordcurve = orderGambarCurve.begin();
-    std::list<int>::iterator itordcurveshape = orderGambarCurveShape.begin();
-
-    //TODO
-    return CurveCollection();
+    rotate(deltaDegree, poros);
+    return *this;
 }

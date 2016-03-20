@@ -35,7 +35,7 @@ public:
 
 	Curve moveResult(Point delta);
 	Curve moveResult(int deltax, int deltay);
-	Curve scaleResult(float scale);
+	Curve scaleResult(float s);
 
 	Curve scaleResult(float scaleX, float scaleY);
 	Curve rotationResult(float deltaDegree);
