@@ -103,7 +103,7 @@ void CurveShape::move(int dx, int dy) {
 
 void CurveShape::scale(float s) {
 //TODO: nilta tolong editin yaaa soalnya dia bingung titik pusatnya haha
-    if (this->size() > 0) {  
+    /*if (this->size() > 0) {  
         int x = this->at(0).getX();
         int y = this->at(0).getY();
         for(int i=0; i<this->size(); i++) {
@@ -120,7 +120,10 @@ void CurveShape::scale(float s) {
         }
         outlineTexture = outlineTexture.scaleResult(s);
         fillTexture = fillTexture.scaleResult(s);
-    }
+    }*/
+    for(int i=0; i<this->size(); i++) {
+        this->at(i).scale(s);
+    } 
 }
 
 void CurveShape::scale(float sx, float sy) {

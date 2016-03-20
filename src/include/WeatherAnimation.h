@@ -19,7 +19,6 @@ private:
 	void createSunnyCloudyWeather(int x, int y);
 	void createStormyWeather(int x, int y);
 
-
 	int type;
 };
 
