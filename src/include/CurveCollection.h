@@ -69,7 +69,11 @@ class CurveCollection{
 	void rotate(float t);
 	void rotate(float t, int cx, int cy);
 	void rotate(float t, const Point& cp);
-
+	
+	void setCurveTexture(Texture t);
+	void setCurveShapeFillTexture(Texture t);
+	void setCurveShapeOutlineTexture(Texture t);
+	void setTexture(Texture t);
 	private:
 	std::list<Curve> curves;
 	std::list<CurveShape> curveShapes;

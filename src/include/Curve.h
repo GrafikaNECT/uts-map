@@ -32,7 +32,8 @@ public:
 	void rotate(float t);
 	void rotate(float t, int cx, int cy);
 	void rotate(float t, const Point& cp);
-	
+
+	void setTexture(Texture t){texture = t;};
 private:
 	Texture texture;
 	Point getCasteljauPoint(int r, int i, double t);

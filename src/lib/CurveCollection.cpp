@@ -257,3 +257,25 @@ void CurveCollection::rotate(float t, const Point& cp) {
         itcurveshape++;
     }
 }
+
+void CurveCollection::setCurveTexture(Texture t){
+    for (std::list<Curve>::iterator it = curves.begin();it!=curves.end();it++){
+         it->setTexture(t);
+    }
+}
+void CurveCollection::setCurveShapeFillTexture(Texture t){
+    for (std::list<CurveShape>::iterator it = curveShapes.begin();it!=curveShapes.end();it++){
+         it->setFillTexture(t);
+    }
+}
+void CurveCollection::setCurveShapeOutlineTexture(Texture t){
+    for (std::list<CurveShape>::iterator it = curveShapes.begin();it!=curveShapes.end();it++){
+         it->setOutlineTexture(t);
+    }
+}
+
+void CurveCollection::setTexture(Texture t){
+    setCurveTexture(t);
+    setCurveShapeFillTexture(t);
+    setCurveShapeOutlineTexture(t);
+}

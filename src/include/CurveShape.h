@@ -30,6 +30,9 @@ public:
 	void rotate(float t, int cx, int cy);
 	void rotate(float t, const Point& cp);
 
+	void setOutlineTexture(Texture t);
+	void setFillTexture(Texture t);
+	void setTexture(Texture t);
 private:
 	Texture outlineTexture;
 	Texture fillTexture;

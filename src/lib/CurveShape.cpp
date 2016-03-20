@@ -167,3 +167,16 @@ void CurveShape::rotate(float t, const Point& cp) {
         this->at(0).rotate(t, cp);
     }
 }
+
+
+void CurveShape::setOutlineTexture(Texture t){
+    outlineTexture = t;
+}
+void CurveShape::setFillTexture(Texture t){
+    fillTexture = t;
+}
+
+void CurveShape::setTexture(Texture t){
+    setOutlineTexture(t);
+    setFillTexture(t);
+}
