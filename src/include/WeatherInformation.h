@@ -14,7 +14,8 @@ public:
 	void parse();
 
 	std::vector<City> getListOfCities() { return listOfCities; };
-
+	int getSize() {return listOfCities.size();};
+	City getCity(int i) { return listOfCities[i]; };
 private:
 	std::vector<City> listOfCities;
 };
