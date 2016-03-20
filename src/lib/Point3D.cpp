@@ -78,8 +78,8 @@ void Point3D::rotate(float t, char axis) {
 		y = y1;
 		z = z1;	
 	} else if (axis == 'y') {
-		int z1 = round(cos(t)*z - sin(t)*x);
-		int x1 = round(sin(t)*z + cos(t)*x);
+		int z1 = round(cos(t)*x - sin(t)*z);
+		int x1 = round(sin(t)*x + cos(t)*z);
 		z = z1;
 		x = x1;	
 	} else if (axis == 'z') {
@@ -114,7 +114,7 @@ Point3D Point3D::rotationResult(float deltaDegree, char axis) const{
 	if (axis == 'x') {
 		p.setXYZ(x,(double)y*cos(deltaRad)-(double)z*sin(deltaRad),(double)y*sin(deltaRad)+(double)z*cos(deltaRad));	
 	} else if (axis == 'y') {
-		p.setXYZ((double)z*cos(deltaRad)-(double)x*sin(deltaRad),y,(double)z*sin(deltaRad)+(double)x*cos(deltaRad));	
+		p.setXYZ((double)x*cos(deltaRad)-(double)z*sin(deltaRad),y,(double)x*sin(deltaRad)+(double)z*cos(deltaRad));	
 	} else if (axis == 'z') {
 		p.setXYZ((double)x*cos(deltaRad)-(double)y*sin(deltaRad),(double)x*sin(deltaRad)+(double)y*cos(deltaRad),z);	
 	}
