@@ -1,10 +1,13 @@
-#include "../include/AlphabetCurveCurve.h"
+#include "../include/AlphabetCurve.h"
 #include "../include/CurveCollection.h"
+#include "../include/Printer.h"
+#include "../include/Texture.h"
 #include <string>
 #include <vector>
 #include <ctype.h>
 
 #include <iostream>
+
 AlphabetCurve::AlphabetCurve(std::ifstream& file){
 	int width,height;
 	file>>width;
@@ -20,37 +23,35 @@ AlphabetCurve::AlphabetCurve(std::ifstream& file){
 		file>>c;
 		string letterfile;
 		file>>letterfile;
-		Letters[c] = CurveCollection(letterfile);
+		Letters[c] = CurveCollection("../assets/fonts/"+letterfile);
 	}
-
-	//tambah karakter blank (spasi)
-	/*std::vector<Polygon> bidangnul(0);
-	std::vector<Polygon> lubangnul(0);
-	Letter ll(bidangnul, lubangnul, width, height);
-	Letters[' ']=ll;*/
 }
 
 CurveCollection AlphabetCurve::getLetter(char c) {
 	return Letters[c];
 }
 int AlphabetCurve::calculateOneCharSpace(float size){
-	return (default_width+5)*size;
+	return default_width*size;
 }
 
-void AlphabetCurve::drawChar(char a, int X, int Y, float scale){
-	getLetter(a).move(X,Y).scale(scale).draw();
+void AlphabetCurve::drawChar(char a, int X, int Y, float scale, Texture texture){
+	CurveCollection letter = getLetter(a);
+	letter.setTexture(texture);
+	letter.scaleResult(scale).moveResult(X,Y).draw();
 }
 
-void AlphabetCurve::drawText(std::string a, int X, int Y, float scale){
+void AlphabetCurve::drawText(std::string a, int X, int Y, float scale, Texture texture){
 	int onecharspace = calculateOneCharSpace(scale);
 	for (int i=0;i<a.length();i++){
-		drawChar(a[i],X+onecharspace*i,Y);
+		if (a[i]!=' ') {
+			drawChar(a[i],X+onecharspace*i,Y,scale,texture);
+		}
 	}
 }
 
-void AlphabetCurve::drawTextCentered(std::string a, int Y, float scale){
+void AlphabetCurve::drawTextCentered(std::string a, int Y, float scale, Texture texture){
 	int onecharspace = calculateOneCharSpace(scale);
 	int X = (Printer::getXRes()-a.length()*onecharspace)/2;
-	drawText(a,X,Y,scale);
+	drawText(a,X,Y,scale,texture);
     
 }
