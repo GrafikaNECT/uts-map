@@ -34,7 +34,8 @@ void drawHUD(){
 	text.drawText("n: Nama Kota",30,90,0.07,Texture::createSingleColorTexture(0,0,0,alphaNamaKota));
 	text.drawText("w, s, a, d: gerak",30,105,0.07,Texture::createSingleColorTexture(0,0,0,alphaPenuh));
 	text.drawText("r, t, y, f, g, h: puter",30,120,0.07,Texture::createSingleColorTexture(0,0,0,alphaPenuh));
-	text.drawText("q: quit",30,135,0.07,Texture::createSingleColorTexture(0,0,0,alphaPenuh));
+	text.drawText("z, x: zoom",30,135,0.07,Texture::createSingleColorTexture(0,0,0,alphaPenuh));
+	text.drawText("q: quit",30,150,0.07,Texture::createSingleColorTexture(0,0,0,alphaPenuh));
 	
 }
 
