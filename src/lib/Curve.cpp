@@ -174,3 +174,52 @@ void Curve::rotate(float t, const Point& cp) {
         this->at(0).rotate(t, cp);
     }
 }
+
+Curve Curve::moveResult(Point delta){
+    return moveResult(delta.getX(), delta.getY());
+}
+
+Curve Curve::moveResult(int deltax, int deltay){
+    Curve retval = *this;
+    for (int i=0;i<std::vector<Point>::size();i++){
+        retval[i].move(deltax,deltay);
+    }
+    retval.texture = texture.translateResult(deltax, deltay);
+    return retval;
+}
+Curve Curve::scaleResult(float scale){
+    Curve retval = *this;
+    for (int i=0;i<std::vector<Point>::size();i++){
+        Point& p = retval[i];
+        p.setX(p.getX()*scale);
+        p.setY(p.getY()*scale);
+    }
+    retval.texture = texture.scaleResult(scale);
+    return retval;
+}
+
+Curve Curve::scaleResult(float scaleX, float scaleY){
+    Curve retval = *this;
+    for (int i=0;i<std::vector<Point>::size();i++){
+        Point& p = retval[i];
+        p.setX(p.getX()*scaleX);
+        p.setY(p.getY()*scaleY);
+    }
+    retval.texture = texture.scaleResult(scaleX,scaleY);
+    return retval;
+}
+
+Curve Curve::rotationResult(float deltaDegree){
+    Curve retval = *this;
+    for (int i=0;i<std::vector<Point>::size();i++){
+        const Point& p = at(i);
+        retval[i]=p.rotationResult(deltaDegree);
+    }
+    return retval;  
+}
+
+Curve Curve::rotationResult(float deltaDegree, Point poros){
+    Curve tmp1 = moveResult(poros.hasilMirror00());
+    Curve tmp2 = tmp1.rotationResult(deltaDegree);
+    return tmp2.moveResult(poros);
+}

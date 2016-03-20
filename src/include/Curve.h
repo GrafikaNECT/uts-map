@@ -32,6 +32,14 @@ public:
 	void rotate(float t);
 	void rotate(float t, int cx, int cy);
 	void rotate(float t, const Point& cp);
+
+	Curve moveResult(Point delta);
+	Curve moveResult(int deltax, int deltay);
+	Curve scaleResult(float scale);
+
+	Curve scaleResult(float scaleX, float scaleY);
+	Curve rotationResult(float deltaDegree);
+	Curve rotationResult(float deltaDegree, Point poros);
 	
 private:
 	Texture texture;

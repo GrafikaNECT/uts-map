@@ -70,6 +70,14 @@ class CurveCollection{
 	void rotate(float t, int cx, int cy);
 	void rotate(float t, const Point& cp);
 
+	CurveCollection moveResult(Point delta);
+	CurveCollection moveResult(int deltax, int deltay);
+	CurveCollection scaleResult(float scale);
+
+	CurveCollection scaleResult(float scaleX, float scaleY);
+	CurveCollection rotationResult(float deltaDegree);
+	CurveCollection rotationResult(float deltaDegree, Point poros);
+
 	private:
 	std::list<Curve> curves;
 	std::list<CurveShape> curveShapes;

@@ -167,3 +167,55 @@ void CurveShape::rotate(float t, const Point& cp) {
         this->at(0).rotate(t, cp);
     }
 }
+
+CurveShape CurveShape::moveResult(Point delta){
+    return moveResult(delta.getX(), delta.getY());
+}
+
+CurveShape CurveShape::moveResult(int deltax, int deltay){
+    CurveShape retval = *this;
+    for (int i=0;i<std::vector<Point>::size();i++){
+        retval[i].move(deltax,deltay);
+    }
+    retval.outlineTexture = outlineTexture.translateResult(deltax, deltay);
+    retval.fillTexture = fillTexture.translateResult(deltax, deltay);
+    return retval;
+}
+CurveShape CurveShape::scaleResult(float scale){
+    CurveShape retval = *this;
+    for (int i=0;i<std::vector<Point>::size();i++){
+        Point& p = retval[i];
+        p.setX(p.getX()*scale);
+        p.setY(p.getY()*scale);
+    }
+    retval.outlineTexture = outlineTexture.scaleResult(scale);
+    retval.fillTexture = fillTexture.scaleResult(scale);
+    return retval;
+}
+
+CurveShape CurveShape::scaleResult(float scaleX, float scaleY){
+    CurveShape retval = *this;
+    for (int i=0;i<std::vector<Point>::size();i++){
+        Point& p = retval[i];
+        p.setX(p.getX()*scaleX);
+        p.setY(p.getY()*scaleY);
+    }
+    retval.outlineTexture = outlineTexture.scaleResult(scaleX,scaleY);
+    retval.fillTexture = fillTexture.scaleResult(scaleX,scaleY);
+    return retval;
+}
+
+CurveShape CurveShape::rotationResult(float deltaDegree){
+    CurveShape retval = *this;
+    for (int i=0;i<std::vector<Point>::size();i++){
+        const Point& p = at(i);
+        retval[i]=p.rotationResult(deltaDegree);
+    }
+    return retval;  
+}
+
+CurveShape CurveShape::rotationResult(float deltaDegree, Point poros){
+    CurveShape tmp1 = moveResult(poros.hasilMirror00());
+    CurveShape tmp2 = tmp1.rotationResult(deltaDegree);
+    return tmp2.moveResult(poros);
+}

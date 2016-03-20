@@ -30,6 +30,14 @@ public:
 	void rotate(float t, int cx, int cy);
 	void rotate(float t, const Point& cp);
 
+	CurveShape moveResult(Point delta);
+	CurveShape moveResult(int deltax, int deltay);
+	CurveShape scaleResult(float scale);
+
+	CurveShape scaleResult(float scaleX, float scaleY);
+	CurveShape rotationResult(float deltaDegree);
+	CurveShape rotationResult(float deltaDegree, Point poros);
+
 private:
 	Texture outlineTexture;
 	Texture fillTexture;
