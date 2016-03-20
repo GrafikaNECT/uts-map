@@ -2,6 +2,7 @@
 #define GIS3D_h
 
 #include "Model3D.h"
+#include "WeatherInformation.h"
 
 class GIS3D{
 	public:
@@ -28,6 +29,7 @@ class GIS3D{
 	void draw();
 
 	private:
+	WeatherInformation weatherInformation;
 	std::vector<Model3D> layers;
 	std::vector<bool> layerEnabled;
 

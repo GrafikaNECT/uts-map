@@ -2,6 +2,12 @@
 #define GIS3D_cpp
 
 #include "../include/GIS3D.h"
+#include "../include/Point3D.h"
+#include "../include/Point.h"
+#include "../include/City.h"
+#include "../include/Alphabet.h"
+#include <iostream>
+
 #include <cmath>
 
 #define PANSTEP 5
@@ -140,12 +146,47 @@ Point3D eye(400,400,1000);
 Point3D centerPoint(400,400,0);
 
 void GIS3D::draw(){
+	Alphabet text;
+	std::cout << "Start draw maps, vector size = " << combinedModel.size() << "\n";
 	combinedModel.moveResult(-panX,-panY,zoomAmount)
 		     .rotationResult(rotateDegZ,centerPoint,'z')
                      .rotationResult(rotateDegX,centerPoint,'x')
 		     .rotationResult(rotateDegY,centerPoint,'y')
 		     .draw(eye);
 	//TODO tambahkan untuk draw weather jika enabled
+	
+	int i;
+	Point3D temploc3;
+	Point temploc;
+	
+	std::cout << "Start draw weather information:\n";
+	for (i=0;i<weatherInformation.getSize();i++) {
+		std::cout << "City number " << i << "\n";
+		City currentCity = weatherInformation.getCity(i);
+		// 1. Get point projection
+		// TODO how about edit City.h so that it uses Point3D?
+		// Get Point3D of the city
+		temploc3.setX(currentCity.getLocation().getX());
+		temploc3.setY(currentCity.getLocation().getY());
+		temploc3.setZ(100);
+		
+		// Follow the transformations
+		temploc3.move(-panX,-panY,zoomAmount);
+		temploc3.rotate(rotateDegZ,centerPoint,'z');
+		temploc3.rotate(rotateDegX,centerPoint,'x');
+		temploc3.rotate(rotateDegY,centerPoint,'y');
+		
+		temploc = temploc3.projectionResult(eye);
+		
+		if (temploc.getX()>0 && temploc.getX()<640 && temploc.getY()>0 && temploc.getY()<480) {
+		// 2. Draw the city name
+		//text.drawText(currentCity.getCityName(),temploc.getX(),temploc.getY(),100, 255,255,255,255);
+		
+		// 3. Draw the city's other stats
+		// 3.1. Draw cuaca
+		//currentCity.getWeather().getWeatherAnimation().startAnimation();
+		}
+	}
 }
 
 void GIS3D::updateCombinedModel(){

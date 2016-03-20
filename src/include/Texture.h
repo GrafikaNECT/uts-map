@@ -21,6 +21,7 @@ class Texture{
 	static Texture fromStream(std::istream& inputfile);
 	//bikin dari R,G,B,A
 	static Texture createSingleColorTexture(int R,int G, int B, int A);
+	static Texture createGrainedColorTexture(int R,int G, int B, int A, double grainAmount = 1);
 
 	//getter (malesh bikinnya)
 
