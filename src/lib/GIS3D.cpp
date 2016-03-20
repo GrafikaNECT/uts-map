@@ -184,12 +184,13 @@ void GIS3D::draw(){
 		temploc = temploc3.projectionResult(eye);
 		
 		if (temploc.getX()>0 && temploc.getX()<Printer::getXRes() && temploc.getY()>0 && temploc.getY()<Printer::getYRes()) {
-		// 2. Draw the city name
-		text.drawText(currentCity.getCityName(),temploc.getX(),temploc.getY(),0.05, Texture::createSingleColorTexture(0,0,0,255));
-		
-		// 3. Draw the city's other stats
-		// 3.1. Draw cuaca
-		//currentCity.getWeather().getWeatherAnimation().startAnimation();
+			Printer::drawPixSquare(temploc.getX(),temploc.getY(),5,255,0,255,255);
+			// 2. Draw the city name
+			text.drawText(currentCity.getCityName(),temploc.getX(),temploc.getY()-12,0.05, Texture::createSingleColorTexture(0,0,0,255));
+
+			// 3. Draw the city's other stats
+			// 3.1. Draw cuaca
+			//currentCity.getWeather().getWeatherAnimation().startAnimation();
 		}
 	}
 }
