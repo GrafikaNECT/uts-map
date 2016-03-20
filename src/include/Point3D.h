@@ -9,6 +9,7 @@ public:
 	// Constructor
 	Point3D(int _x, int _y, int _z);
 	Point3D() {Point3D(0,0,0);};
+	Point3D(Point p){Point3D(p.getX(),p.getY(),0);}
 	
 	// Getter
 	int getX() const;
