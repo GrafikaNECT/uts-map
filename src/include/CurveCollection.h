@@ -74,6 +74,15 @@ class CurveCollection{
 	void setCurveShapeFillTexture(Texture t);
 	void setCurveShapeOutlineTexture(Texture t);
 	void setTexture(Texture t);
+
+	CurveCollection moveResult(Point delta);
+	CurveCollection moveResult(int deltax, int deltay);
+	CurveCollection scaleResult(float s);
+
+	CurveCollection scaleResult(float scaleX, float scaleY);
+	CurveCollection rotationResult(float deltaDegree);
+	CurveCollection rotationResult(float deltaDegree, Point poros);
+
 	private:
 	std::list<Curve> curves;
 	std::list<CurveShape> curveShapes;

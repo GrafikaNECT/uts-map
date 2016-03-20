@@ -33,6 +33,15 @@ public:
 	void setOutlineTexture(Texture t);
 	void setFillTexture(Texture t);
 	void setTexture(Texture t);
+
+	CurveShape moveResult(Point delta);
+	CurveShape moveResult(int deltax, int deltay);
+	CurveShape scaleResult(float s);
+
+	CurveShape scaleResult(float scaleX, float scaleY);
+	CurveShape rotationResult(float deltaDegree);
+	CurveShape rotationResult(float deltaDegree, Point poros);
+
 private:
 	Texture outlineTexture;
 	Texture fillTexture;

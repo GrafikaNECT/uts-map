@@ -279,3 +279,32 @@ void CurveCollection::setTexture(Texture t){
     setCurveShapeFillTexture(t);
     setCurveShapeOutlineTexture(t);
 }
+
+CurveCollection CurveCollection::moveResult(Point delta){
+    move(delta.getX(), delta.getY());
+    return *this;
+}
+
+CurveCollection CurveCollection::moveResult(int deltax, int deltay){
+    move(deltax, deltay);
+    return *this;
+}
+CurveCollection CurveCollection::scaleResult(float s){
+    scale(s);
+    return *this;
+}
+
+CurveCollection CurveCollection::scaleResult(float scaleX, float scaleY){
+    scale(scaleX, scaleY);
+    return *this;
+}
+
+CurveCollection CurveCollection::rotationResult(float deltaDegree){
+    rotate(deltaDegree);
+    return *this;
+}
+
+CurveCollection CurveCollection::rotationResult(float deltaDegree, Point poros){
+    rotate(deltaDegree, poros);
+    return *this;
+}

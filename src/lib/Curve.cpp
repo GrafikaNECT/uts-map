@@ -174,3 +174,33 @@ void Curve::rotate(float t, const Point& cp) {
         this->at(0).rotate(t, cp);
     }
 }
+
+Curve Curve::moveResult(Point delta){
+    move(delta.getX(), delta.getY());
+    return *this;
+}
+
+Curve Curve::moveResult(int deltax, int deltay){
+    move(deltax, deltay);
+    return *this;
+}
+
+Curve Curve::scaleResult(float s){
+    scale(s);
+    return *this;
+}
+
+Curve Curve::scaleResult(float scaleX, float scaleY){
+    scale(scaleX, scaleY);
+    return *this;
+}
+
+Curve Curve::rotationResult(float deltaDegree){
+    rotate(deltaDegree);
+    return *this;
+}
+
+Curve Curve::rotationResult(float deltaDegree, Point poros){
+    rotate(deltaDegree, poros);
+    return *this;
+}
