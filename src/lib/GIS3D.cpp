@@ -139,12 +139,31 @@ void GIS3D::toggleWeather(){
 		enableWeather();
 }
 
+void GIS3D::enableCityName(){
+	cityNameEnabled=true;
+	//TODO tambahkan juga enable/disable animasi bila pakai animasi
+}
+void GIS3D::disableCityName(){
+	cityNameEnabled=false;
+	//TODO tambahkan juga enable/disable animasi bila pakai animasi
+}
+void GIS3D::toggleCityName(){
+	if (isCityNameEnabled())
+		disableCityName();
+	else
+		enableCityName();
+}
+
 bool GIS3D::isLayerEnabled(int layerNum){
 	return layerEnabled[layerNum];
 }
 
 bool GIS3D::isWeatherEnabled(){
 	return weatherEnabled;
+}
+
+bool GIS3D::isCityNameEnabled(){
+	return cityNameEnabled;
 }
 
 Point3D eye(400,400,1000);
@@ -165,6 +184,7 @@ void GIS3D::draw(){
 	Point3D temploc3;
 	Point temploc;
 
+	if (isWeatherEnabled()||isCityNameEnabled())
 	for (i=0;i<weatherInformation.getSize();i++) {
 		City currentCity = weatherInformation.getCity(i);
 		// 1. Get point projection
@@ -186,15 +206,18 @@ void GIS3D::draw(){
 		if (temploc.getX()>0 && temploc.getX()<Printer::getXRes() && temploc.getY()>0 && temploc.getY()<Printer::getYRes()) {
 			Printer::drawPixSquare(temploc.getX(),temploc.getY(),5,255,0,255,255);
 			// 2. Draw the city name
-			text.drawText(currentCity.getCityName(),temploc.getX(),temploc.getY()-12,0.05, Texture::createSingleColorTexture(0,0,0,255));
+			if (isCityNameEnabled())
+				text.drawText(currentCity.getCityName(),temploc.getX(),temploc.getY()-12,0.05, Texture::createSingleColorTexture(0,0,0,255));
 
-			// 3. Draw the city's other stats
-			// 3.1. Draw cuaca
-			/*if (!currentCity.getWeather().getWeatherAnimation().getRunning())
-				currentCity.getWeather().getWeatherAnimation().startAnimation();*/
-			CurveCollection weatherPic = currentCity.getWeather().getWeatherAnimation().getFrame();
-			weatherPic = weatherPic.moveResult(temploc.getX()-currentCity.getLocation().getX()*0.1,temploc.getY()-40-currentCity.getLocation().getY()*0.1);
-			weatherPic.draw();
+				// 3. Draw the city's other stats
+				// 3.1. Draw cuaca
+				/*if (!currentCity.getWeather().getWeatherAnimation().getRunning())
+					currentCity.getWeather().getWeatherAnimation().startAnimation();*/
+				if (isWeatherEnabled()){
+				CurveCollection weatherPic = currentCity.getWeather().getWeatherAnimation().getFrame();
+				weatherPic = weatherPic.moveResult(temploc.getX()-currentCity.getLocation().getX()*0.1,temploc.getY()-40-currentCity.getLocation().getY()*0.1);
+				weatherPic.draw();
+			}
 		}
 	}
 }

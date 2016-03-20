@@ -24,8 +24,13 @@ class GIS3D{
 	void disableWeather();
 	void toggleWeather();
 
+	void enableCityName();
+	void disableCityName();
+	void toggleCityName();
+
 	bool isLayerEnabled(int layerNum);
 	bool isWeatherEnabled();
+	bool isCityNameEnabled();
 
 	void draw();
 
@@ -40,6 +45,7 @@ class GIS3D{
 	//TODO tambahkan untuk informasi weather di sini
 	//bebas mau pake apa aja
 	bool weatherEnabled;
+	bool cityNameEnabled;
 
 	int panX;
 	int panY;

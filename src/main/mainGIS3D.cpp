@@ -49,6 +49,12 @@ int main(){
 			gis3D.toggleLayer(layerNum);
 		}else
 		switch(c){
+		case 'c':
+			gis3D.toggleWeather();
+		break;
+		case 'n':
+			gis3D.toggleCityName();
+		break;
 		case 'w':
 			gis3D.pan("up");
 		break;
