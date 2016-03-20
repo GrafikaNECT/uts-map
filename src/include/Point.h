@@ -34,6 +34,9 @@ public:
 	};
 	Point rotationResult(float deltaDegree) const;
 	Point hasilMirror00() const;
+
+	bool operator==(const Point& rhs) const;
+	bool operator!=(const Point&rhs ) const {return !operator==(rhs);};
 };
 
 #endif // POINT_H

@@ -67,8 +67,11 @@ void Curve::draw(){
 
 std::vector<Point> Curve::getPathPoints() {
     std::vector<Point> tmp;
-    for (double t = 0; t <= 1; t += 0.001) { 
-        tmp.push_back(calculateBezier(t));
+    tmp.push_back(calculateBezier(0));
+    for (double t = 0.001; t <= 1; t += 0.001) { 
+	Point newPoint = calculateBezier(t);
+	if (newPoint!=tmp.back())
+	        tmp.push_back(calculateBezier(t));
     }
     return tmp;
 }

@@ -72,20 +72,17 @@ void CurveShape::push_back(int x, int y){
 }
 
 void CurveShape::draw(){
-    std::vector<Point> tmp;
+    std::vector<Point> tmp(4);
     std::vector<Point> path;
     SolidPolygon fill(fillTexture);
 
     for (int i = 0; i < this->size()-3; i+=3) {
-      tmp.push_back(this->at(i));
-      tmp.push_back(this->at(i+1));
-      tmp.push_back(this->at(i+2));
-      tmp.push_back(this->at(i+3));
+      for (int j=0;j<4;j++)
+        tmp[j]=this->at(i+j);
       Curve curve(tmp,outlineTexture);
       path = curve.getPathPoints();
       fill.insert(fill.end(),path.begin(),path.end());
       path.clear();
-      tmp.clear();
     }
 
     //draw fill

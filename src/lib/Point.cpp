@@ -71,3 +71,7 @@ Point Point::hasilMirror00() const{
 	Point p(-x,-y);
 	return p;
 }
+
+bool Point::operator==(const Point& rhs) const{
+	return rhs.getX()==getX() && rhs.getY()==getY();
+}
