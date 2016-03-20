@@ -5,7 +5,7 @@
 #include "../include/Point3D.h"
 #include "../include/Point.h"
 #include "../include/City.h"
-#include "../include/Alphabet.h"
+#include "../include/AlphabetCurve.h"
 #include <iostream>
 
 #include <cmath>
@@ -146,8 +146,6 @@ Point3D eye(400,400,1000);
 Point3D centerPoint(400,400,0);
 
 void GIS3D::draw(){
-	Alphabet text;
-	std::cout << "Start draw maps, vector size = " << combinedModel.size() << "\n";
 	combinedModel.moveResult(-panX,-panY,zoomAmount)
 		     .rotationResult(rotateDegZ,centerPoint,'z')
                      .rotationResult(rotateDegX,centerPoint,'x')
@@ -158,10 +156,10 @@ void GIS3D::draw(){
 	int i;
 	Point3D temploc3;
 	Point temploc;
+	static std::ifstream textFile("assets/Alphabet.txt");
+	static AlphabetCurve text(textFile);
 	
-	std::cout << "Start draw weather information:\n";
 	for (i=0;i<weatherInformation.getSize();i++) {
-		std::cout << "City number " << i << "\n";
 		City currentCity = weatherInformation.getCity(i);
 		// 1. Get point projection
 		// TODO how about edit City.h so that it uses Point3D?
@@ -180,7 +178,7 @@ void GIS3D::draw(){
 		
 		if (temploc.getX()>0 && temploc.getX()<640 && temploc.getY()>0 && temploc.getY()<480) {
 		// 2. Draw the city name
-		//text.drawText(currentCity.getCityName(),temploc.getX(),temploc.getY(),100, 255,255,255,255);
+		text.drawText(currentCity.getCityName(),temploc.getX(),temploc.getY(),100, Texture::createSingleColorTexture(0,0,0,255));
 		
 		// 3. Draw the city's other stats
 		// 3.1. Draw cuaca
