@@ -1,6 +1,6 @@
 Banda Aceh
 44 89
-partly cloudy
+partially cloudy
 79
 NE 5
 80
@@ -11,7 +11,7 @@ NE 5
 
 Medan
 158 154
-partly cloudy
+partially cloudy
 79
 N 7
 79
@@ -154,7 +154,7 @@ N 3
 
 Surabaya
 642 535
-partly cloudy
+partially cloudy
 80
 SE 5
 84
@@ -165,7 +165,7 @@ SE 5
 
 Denpasar
 732 577
-partly cloudy
+partially cloudy
 80
 ESE 6
 79
@@ -187,7 +187,7 @@ ESE 6
 
 Kupang
 1021 632
-partly cloudy
+partially cloudy
 90
 ESE 6
 94
@@ -198,7 +198,7 @@ ESE 6
 
 Pontianak
 527 280
-partly cloudy
+partially cloudy
 90
 W 3
 94
@@ -231,7 +231,7 @@ SSE 4
 
 Samarinda
 798 296
-partly cloudy
+partially cloudy
 82
 NE 4
 90
@@ -242,7 +242,7 @@ NE 4
 
 Tanjung Selor
 810 202
-partly cloudy
+partially cloudy
 90
 ESE 3
 98
