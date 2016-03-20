@@ -1,5 +1,5 @@
 200 200
-32
+35
 A
 A.txt
 B
@@ -64,3 +64,9 @@ _exclamation.txt
 _percent.txt
 ?
 _question.txt
+0
+0.txt
+1
+1.txt
+2
+2.txt
