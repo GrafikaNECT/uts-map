@@ -1,5 +1,6 @@
 #include "../include/Curve.h"
 #include "../include/Printer.h" 
+#define GETPATHPOINTS_STEP 0.1
 
 Curve::Curve(std::string fileName) : std::vector<Point>() {
     std::ifstream infile(fileName);
@@ -68,7 +69,7 @@ void Curve::draw(){
 std::vector<Point> Curve::getPathPoints() {
     std::vector<Point> tmp;
     tmp.push_back(calculateBezier(0));
-    for (double t = 0.001; t <= 1; t += 0.001) { 
+    for (double t = 0; t <= 1; t += GETPATHPOINTS_STEP) { 
 	Point newPoint = calculateBezier(t);
 	if (newPoint!=tmp.back())
 	        tmp.push_back(calculateBezier(t));
