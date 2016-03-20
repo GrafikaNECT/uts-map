@@ -16,7 +16,7 @@ public:
 
 	std::string getCityName() { return name; };
 	Point getLocation() { return location; };
-	Weather getWeather() { return weather; };
+	Weather& getWeather() { return weather; };
 
 	void setCityName(std::string _name) { name = _name; };
 	void setLocation(int x, int y ) { location = Point(x,y); };

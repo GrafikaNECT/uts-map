@@ -14,7 +14,7 @@ public:
 		float _visibility, int _uvIndex);
 	~Weather() { };
 
-	WeatherAnimation getWeatherAnimation() { return weatherAnimation; };
+	WeatherAnimation& getWeatherAnimation() { return weatherAnimation; };
 	int getTemperature() { return temperature; };
 	std::string getWindDirection() { return windDirection; };
 	int getWind() { return wind; };

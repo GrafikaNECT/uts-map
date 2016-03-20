@@ -190,7 +190,11 @@ void GIS3D::draw(){
 
 			// 3. Draw the city's other stats
 			// 3.1. Draw cuaca
-			//currentCity.getWeather().getWeatherAnimation().startAnimation();
+			/*if (!currentCity.getWeather().getWeatherAnimation().getRunning())
+				currentCity.getWeather().getWeatherAnimation().startAnimation();*/
+			CurveCollection weatherPic = currentCity.getWeather().getWeatherAnimation().getFrame();
+			weatherPic = weatherPic.moveResult(temploc.getX()-currentCity.getLocation().getX()*0.1,temploc.getY()-40-currentCity.getLocation().getY()*0.1);
+			weatherPic.draw();
 		}
 	}
 }

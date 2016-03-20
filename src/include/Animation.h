@@ -23,7 +23,7 @@ public:
 	void stopAnimation(); 
 
 	vector<CurveCollection> getFrames() { return frames; };
-	CurveCollection getFrame() { return frames.at(currentFrame); };
+	CurveCollection& getFrame() { return frames.at(currentFrame); };
 	int getCurrentFrame() { return currentFrame; };
 	bool getRunning() { return running; };
 

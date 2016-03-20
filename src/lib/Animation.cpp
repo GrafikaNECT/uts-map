@@ -3,10 +3,12 @@
 Animation::Animation() {
 	currentFrame = -1;
 	rc = -1;
+	running = false;
 }
 
 Animation::~Animation() {
-	stopAnimation();
+	if (!running)
+		stopAnimation();
 }
 
 void Animation::addFrame(string filename) {
