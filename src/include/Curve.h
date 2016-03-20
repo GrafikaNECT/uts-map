@@ -33,6 +33,9 @@ public:
 	void rotate(float t, int cx, int cy);
 	void rotate(float t, const Point& cp);
 
+
+	void setTexture(Texture t){texture = t;};
+
 	Curve moveResult(Point delta);
 	Curve moveResult(int deltax, int deltay);
 	Curve scaleResult(float s);

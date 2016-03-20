@@ -168,6 +168,18 @@ void CurveShape::rotate(float t, const Point& cp) {
     }
 }
 
+void CurveShape::setOutlineTexture(Texture t){
+    outlineTexture = t;
+}
+void CurveShape::setFillTexture(Texture t){
+    fillTexture = t;
+}
+
+void CurveShape::setTexture(Texture t){
+    setOutlineTexture(t);
+    setFillTexture(t);
+}
+
 CurveShape CurveShape::moveResult(Point delta){
     move(delta.getX(), delta.getY());
     return *this;
@@ -196,3 +208,4 @@ CurveShape CurveShape::rotationResult(float deltaDegree, Point poros){
     rotate(deltaDegree, poros);
     return *this;
 }
+
