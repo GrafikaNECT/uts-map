@@ -8,7 +8,7 @@
 void drawAllCanvas(){
 	Printer::drawCanvas(100,100,100,255);
 }
-
+#include "../include/AlphabetCurve.h"
 int main(){
 	//load file-file
 	std::ifstream fileLaut("assets/indonesia_map_elements_3d/Laut.txt");
@@ -18,10 +18,17 @@ int main(){
 	//inisialisasi printer
 	Printer::initializePrinter();
 
+	//test
+
+	static std::ifstream textFile("assets/fonts/Alphabet.txt");
+	static AlphabetCurve text(textFile);
+	text.drawTextCentered("INDONESIA",30,0.2,Texture::createSingleColorTexture(255,0,0,255));
+
 	GIS3D gis3D;
 	gis3D.add(Model3D::fromStreamFormatMap(fileLaut));
 	gis3D.add(Model3D::fromStreamFormatMap(filePulau));
 	gis3D.add(Model3D::fromStreamFormatMap(fileKontur));
+	gis3D.parseWeatherInformation();
 
 	//looping menerima kontrol untuk pan dan zoom serta menggambar
 	//jangan lupa ada kontrol untuk quit
@@ -87,6 +94,7 @@ int main(){
 		}
 		drawAllCanvas();
 		gis3D.draw();
+		text.drawTextCentered("INDONESIA",30,0.2,Texture::createSingleColorTexture(255,0,0,255));
 		Printer::printToScreen();
 	}
 

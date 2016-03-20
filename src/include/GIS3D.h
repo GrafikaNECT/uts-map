@@ -9,6 +9,7 @@ class GIS3D{
 	GIS3D();
 
 	void add(Model3D model3D);
+	void parseWeatherInformation();
 	//TODO tambahkan untuk set/add weather
 
 	void pan(std::string dir);

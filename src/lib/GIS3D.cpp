@@ -4,6 +4,7 @@
 #include "../include/GIS3D.h"
 #include "../include/Point3D.h"
 #include "../include/Point.h"
+#include "../include/Printer.h"
 #include "../include/City.h"
 #include "../include/AlphabetCurve.h"
 #include <iostream>
@@ -29,7 +30,7 @@
 #define ROTATEMAXX (ROTATEDEGXSTART+ROTATEMAX)
 
 
-GIS3D::GIS3D(){
+GIS3D::GIS3D():panX(0),panY(0),zoomAmount(0){
 	rotateDegX = ROTATEDEGXSTART;
 	rotateDegY = ROTATEDEGYSTART;
 	rotateDegZ = ROTATEDEGZSTART;
@@ -39,6 +40,10 @@ void GIS3D::add(Model3D model3D){
 	layers.push_back(model3D);
 	layerEnabled.push_back(true);
 	updateCombinedModel();
+}
+
+void GIS3D::parseWeatherInformation(){
+	weatherInformation.parse();
 }
 
 double degToRad(double deg){
@@ -151,14 +156,15 @@ void GIS3D::draw(){
                      .rotationResult(rotateDegX,centerPoint,'x')
 		     .rotationResult(rotateDegY,centerPoint,'y')
 		     .draw(eye);
+
+	static std::ifstream textFile("assets/fonts/Alphabet.txt");
+	static AlphabetCurve text(textFile);
 	//TODO tambahkan untuk draw weather jika enabled
 	
 	int i;
 	Point3D temploc3;
 	Point temploc;
-	static std::ifstream textFile("assets/Alphabet.txt");
-	static AlphabetCurve text(textFile);
-	
+
 	for (i=0;i<weatherInformation.getSize();i++) {
 		City currentCity = weatherInformation.getCity(i);
 		// 1. Get point projection
@@ -166,19 +172,20 @@ void GIS3D::draw(){
 		// Get Point3D of the city
 		temploc3.setX(currentCity.getLocation().getX());
 		temploc3.setY(currentCity.getLocation().getY());
-		temploc3.setZ(100);
+		temploc3.setZ(0);
 		
-		// Follow the transformations
-		temploc3.move(-panX,-panY,zoomAmount);
-		temploc3.rotate(rotateDegZ,centerPoint,'z');
-		temploc3.rotate(rotateDegX,centerPoint,'x');
-		temploc3.rotate(rotateDegY,centerPoint,'y');
+		//Follow the transformations
+		temploc3=temploc3
+			.moveResult(-panX,-panY,zoomAmount)
+			.rotationResult(rotateDegZ,centerPoint,'z')
+			.rotationResult(rotateDegX,centerPoint,'x')
+			.rotationResult(rotateDegY,centerPoint,'y');
 		
 		temploc = temploc3.projectionResult(eye);
 		
-		if (temploc.getX()>0 && temploc.getX()<640 && temploc.getY()>0 && temploc.getY()<480) {
+		if (temploc.getX()>0 && temploc.getX()<Printer::getXRes() && temploc.getY()>0 && temploc.getY()<Printer::getYRes()) {
 		// 2. Draw the city name
-		text.drawText(currentCity.getCityName(),temploc.getX(),temploc.getY(),100, Texture::createSingleColorTexture(0,0,0,255));
+		text.drawText(currentCity.getCityName(),temploc.getX(),temploc.getY(),0.05, Texture::createSingleColorTexture(0,0,0,255));
 		
 		// 3. Draw the city's other stats
 		// 3.1. Draw cuaca

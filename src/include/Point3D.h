@@ -36,7 +36,7 @@ public:
 		Point3D p(getX()+_x,getY()+_y,getZ()+_z);
 		return p;
 	};
-
+	Point3D rotationResult(float deltaDegree, const Point3D& cp, char axis) const;
 	Point3D rotationResult(float deltaDegree, char axis) const;
 	Point3D mirrorResult() const;
 	Point3D mirrorResult(char axis) const;

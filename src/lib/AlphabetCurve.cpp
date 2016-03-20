@@ -23,12 +23,12 @@ AlphabetCurve::AlphabetCurve(std::ifstream& file){
 		file>>c;
 		string letterfile;
 		file>>letterfile;
-		Letters[c] = CurveCollection("../assets/fonts/"+letterfile);
+		Letters[c] = CurveCollection("assets/fonts/"+letterfile);
 	}
 }
 
 CurveCollection AlphabetCurve::getLetter(char c) {
-	return Letters[c];
+	return Letters[std::toupper(c)];
 }
 int AlphabetCurve::calculateOneCharSpace(float size){
 	return default_width*size;

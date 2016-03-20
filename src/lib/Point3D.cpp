@@ -100,6 +100,14 @@ void Point3D::rotate(float t, const Point3D& cp, char axis){
 	rotate(t,cp.getX(),cp.getY(),cp.getZ(),axis);
 }
 
+Point3D Point3D::rotationResult(float deltaDegree, const Point3D& cp, char axis) const{
+	Point3D p = *this;
+	p.move(-cp.getX(),-cp.getY(),-cp.getY());
+	p = p.rotationResult(deltaDegree,axis);
+	p.move(cp.getX(),cp.getY(),cp.getZ());
+	return p;
+}
+
 Point3D Point3D::rotationResult(float deltaDegree, char axis) const{
 	float deltaRad = deltaDegree*M_PI/180.0;
 	Point3D p;
